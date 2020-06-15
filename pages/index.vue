@@ -1,68 +1,59 @@
 <template>
-  <div class="container">
-    <div>
-      <logo />
-      <h1 class="title">
-        nuxt-landing
-      </h1>
-      <h2 class="subtitle">
-        My polished Nuxt.js project
-      </h2>
-      <div class="links">
-        <a href="https://nuxtjs.org/" target="_blank" class="button--green">
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >
-          GitHub
-        </a>
+  <no-ssr>
+    <full-page id="fullpage" ref="fullpage" :options="options">
+      <!-- HOME SECTION -->
+      <div class="section section--header gradient-home">
+        <!-- <MainSection /> -->
+        <div class="section__next">
+          <div class="next" @click="$refs.fullpage.api.moveSectionDown()">
+            <span>Try it</span>
+            sdfsdfsdf111
+            <!-- <img src="./assets/images/arrow-down.svg" alt="" /> -->
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
+      <!-- END -->
+      <!-- VIDEO SECTION -->
+      <div class="section gradient-video">
+        <!-- <VideoSection /> -->
+        <div class="section__next">
+          <div class="next" @click="$refs.fullpage.api.moveSectionDown()">
+            sdfdsfsd22222
+            <!-- <img src="./assets/images/arrow-down.svg" alt="" /> -->
+          </div>
+        </div>
+      </div>
+      <!-- END -->
+      <!-- HOWITWORKS SECTION -->
+      <div class="section gradient-works">
+        <!-- <HowSection /> -->
+        <div class="section__next">
+          <div class="next" @click="$refs.fullpage.api.moveSectionDown()">
+            sdfsdsdf33333
+            <!-- <img src="./assets/images/arrow-down.svg" alt="" /> -->
+          </div>
+        </div>
+      </div>
+      <!-- END -->
+    </full-page>
+  </no-ssr>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
+import NoSsr from 'vue-no-ssr'
 
 export default {
   components: {
-    Logo
+    NoSsr
+  },
+  data() {
+    return {
+      options: {
+        menu: '#menu',
+        anchors: ['page1', 'page2', 'page3'],
+        scrollOverflow: true
+      }
+    }
   }
 }
 </script>
-
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
-</style>
