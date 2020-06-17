@@ -19,5 +19,10 @@ module.exports = {
   ],
   // add your custom rules here
   rules: {
+  },
+  globals: {
+    'TweenMax': true,
+    'TimelineMax': true,
+    'SplitText': true
   }
 }

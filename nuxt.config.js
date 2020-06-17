@@ -31,7 +31,12 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [{ src: '~/plugins/fullpage.js', ssr: false }],
+  plugins: [
+    { src: '~/plugins/fullpage.js', ssr: false },
+    { src: '~/plugins/gsap.js', ssr: false },
+    { src: '~/plugins/intersection-observer.js', ssr: false },
+    { src: '~/plugins/directives.js', ssr: true }
+  ],
   /*
    ** Nuxt.js dev-modules
    */
