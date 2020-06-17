@@ -35,7 +35,7 @@ export default {
     { src: '~/plugins/fullpage.js', ssr: false },
     { src: '~/plugins/gsap.js', ssr: false },
     { src: '~/plugins/intersection-observer.js', ssr: false },
-    { src: '~/plugins/directives.js', ssr: true }
+    { src: '~/plugins/directives.js', ssr: false }
   ],
   /*
    ** Nuxt.js dev-modules
@@ -55,6 +55,12 @@ export default {
     /*
      ** You can extend webpack config here
      */
+    html: {
+      minify: {
+        collapseWhitespace: true,
+        removeComments: true
+      }
+    },
     extend(config, ctx) {}
   }
 }
