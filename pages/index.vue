@@ -51,7 +51,13 @@ export default {
       options: {
         menu: '#menu',
         anchors: ['page1', 'page2', 'page3'],
-        scrollOverflow: true
+        scrollOverflow: true,
+        onLeave: (anchor, index, item, isFirst, isLast) => {
+          console.log('onLeave >>', anchor, index, item, isFirst, isLast)
+        },
+        afterLoad: (origin, destination, direction) => {
+          console.log('afterLoad >>', origin, destination, direction)
+        }
       }
     }
   }

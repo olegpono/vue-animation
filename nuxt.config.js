@@ -14,7 +14,11 @@ export default {
         content: process.env.npm_package_description || ''
       }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    script: [
+      { src: '~/assets/js/typeform.js' },
+      { src: '~/assets/js/intercom.js' }
+    ]
   },
   /*
    ** Customize the progress-bar color
@@ -23,7 +27,7 @@ export default {
   /*
    ** Global CSS
    */
-  css: ['@/assets/scss/style.scss'],
+  css: ['@/assets/css/reset.css', '@/assets/scss/style.scss'],
   /*
    ** Plugins to load before mounting the App
    */
