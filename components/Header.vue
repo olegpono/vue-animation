@@ -1,7 +1,7 @@
 <template>
   <header class="header">
     <div class="header__logo">
-      Badaboom
+      <img src="~/assets/images/logo.svg" alt="Badaboom logo" />
     </div>
     <nav class="header__navigation">
       <ul>

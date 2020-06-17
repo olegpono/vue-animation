@@ -14,5 +14,9 @@
       </svg>
       KEEP ME UPDATED
     </button>
+
+    <div class="footer__arrow-down">
+      <img src="~/assets/images/arrow-down.svg" alt="arrow down" />
+    </div>
   </footer>
 </template>
