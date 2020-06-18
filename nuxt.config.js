@@ -15,10 +15,7 @@ export default {
       }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
-    script: [
-      { src: '~/assets/js/typeform.js' },
-      { src: '~/assets/js/intercom.js' }
-    ]
+    script: [{ src: '/js/typeform.js' }, { src: '/js/intercom.js' }]
   },
   /*
    ** Customize the progress-bar color
