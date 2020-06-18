@@ -15,8 +15,32 @@
       KEEP ME UPDATED
     </button>
 
-    <div class="footer__arrow-down">
-      <img src="~/assets/images/arrow-down.svg" alt="arrow down" />
+    <div class="footer__arrow-down" @click="goToNext">
+      <transition name="fade" mode="out-in">
+        <svg-icon :name="arrowIcon" />>
+      </transition>
     </div>
   </footer>
 </template>
+
+<script>
+export default {
+  name: 'Footer',
+  props: {
+    inversion: {
+      type: Boolean,
+      default: false
+    }
+  },
+  computed: {
+    arrowIcon() {
+      return this.inversion ? 'arrow-down-gray' : 'arrow-down'
+    }
+  },
+  methods: {
+    goToNext() {
+      this.$root.$emit('go-next')
+    }
+  }
+}
+</script>

@@ -9,7 +9,13 @@ const EVENTS = {
 }
 
 export default class Observer {
-  constructor(settings = { root: null, rootMargin: '0px', threshold: 0.5 }) {
+  constructor(
+    settings = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.5
+    }
+  ) {
     const events = initEvents()
     this.observer = new IntersectionObserver(callback, settings)
 
@@ -36,6 +42,7 @@ export default class Observer {
     if (isElement(el)) {
       this.observer.observe(el)
     } else {
+      // eslint-disable-next-line no-console
       console.error(`Intersection Observer: ${el} is not DOM element!`)
     }
   }
@@ -44,6 +51,7 @@ export default class Observer {
     if (isElement(el)) {
       this.observer.unobserve(el)
     } else {
+      // eslint-disable-next-line no-console
       console.error(`Intersection Observer: ${el} is not DOM element!`)
     }
   }
