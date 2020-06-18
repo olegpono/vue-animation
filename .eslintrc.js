@@ -23,6 +23,13 @@ module.exports = {
   globals: {
     'TweenMax': true,
     'TimelineMax': true,
-    'SplitText': true
+    'SplitText': true,
+    'Power0': true,
+    'Power1': true,
+    'Power2': true,
+    'Power3': true,
+    'Power4': true,
+    'Sine': true,
+    'CustomEase': true
   }
 }

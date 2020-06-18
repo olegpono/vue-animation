@@ -25,11 +25,38 @@ export default {
         menu: '#menu',
         anchors: ['page1', 'page2', 'page3'],
         scrollOverflow: true,
-        onLeave: (anchor, index, item, isFirst, isLast) => {
-          console.log('onLeave >>', anchor, index, item, isFirst, isLast)
-        },
-        afterLoad: (origin, destination, direction) => {
-          console.log('afterLoad >>', origin, destination, direction)
+        scrollingSpeed: 1000,
+        easing: 'none',
+        onLeave: (section, nextSection, direction) => {
+          const height = window.innerHeight
+          const duration = 1
+          const ease = Power0.out
+
+          if (direction === 'down') {
+            TweenMax.to(section.item, duration, {
+              y: height,
+              ease
+            })
+            TweenMax.to(section.item.querySelector('.container'), duration, {
+              opacity: 0,
+              scale: 0.95,
+              ease
+            })
+          } else {
+            TweenMax.to(
+              nextSection.item.querySelector('.container'),
+              duration,
+              {
+                opacity: 1,
+                scale: 1,
+                ease
+              }
+            )
+            TweenMax.to(nextSection.item, duration, {
+              y: 0,
+              ease
+            })
+          }
         }
       }
     }

@@ -46,7 +46,7 @@ html {
 body {
 	font-family: 'SharpGroteskLight25', sans-serif;
 	color: $color-6;
-	// background-color: black;
+	background-color: black;
 	@include font-smoothing;
 
 	&::before {
@@ -322,7 +322,8 @@ body[data-hijacking="on"] {
 
 .container {
 	height: 100%;
-	width: 90%;
+	width: 100%;
+	padding: 0 5%;
 	margin: auto;
 
 	&--text-center {
@@ -333,16 +334,22 @@ body[data-hijacking="on"] {
 
 .section {
 	&--first {
-		background: url('~assets/images/remove/header-background.png');
-		background-size: cover;
+		.container {
+			background: url('~assets/images/remove/header-background.png');
+			background-size: cover;
+		}
 	}
 
 	&--green {
-		background-color: $green;
+		.container {
+			background-color: $green;
+		}
 	}
 
 	&--purple {
-		background-color: $purple;
+		.container {
+			background-color: $purple;
+		}
 	}
 }
 
