@@ -16,7 +16,9 @@
         </div>
       </h2>
       <div class="section__image">
-        <SunglassFlashing />
+        <SunglassFlashing
+          v-animate="{ name: 'fade-in', delay: 0.5, duration: 1 }"
+        />
       </div>
     </div>
   </section>

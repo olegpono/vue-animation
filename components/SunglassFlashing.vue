@@ -53,7 +53,8 @@ export default {
       this.tl = new TimelineMax({
         paused: true,
         repeat: -1,
-        yoyo: true
+        yoyo: true,
+        delay: 1.5
       })
       this.tl
         .to(brightBorder, 1, { opacity: 1, ease: Bounce.easeOut })
