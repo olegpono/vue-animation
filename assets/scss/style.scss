@@ -363,6 +363,19 @@ body {
   			height: 300px;
 		}
 	}
+
+	&--wdiw-1 {
+		.section {
+			&__image {
+				padding-left: 7%;
+
+				svg {
+					width: 525px;
+					height: 525px;
+				}
+			}
+		}
+	}
 }
 
 .fp-scroller {
@@ -396,7 +409,7 @@ body {
 	&--small {
 		text-align: left;
 		text-transform: initial;
-		font-size: 36px;
+		font-size: 44px;
 		font-weight: 600;
 	}
 
