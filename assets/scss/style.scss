@@ -540,6 +540,21 @@ body {
 	opacity: 0;
 }
 
+@media screen and (max-width: 1440px) {
+	.section {
+		&--wdiw-1 {
+			.section {
+				&__image {
+					svg {
+						width: 350px;
+						height: 350px;
+					}
+				}
+			}
+		}
+	}
+}
+
 // Extra large devices (large desktops, 1200px and down)
 @media screen and (max-width: 1200px) {
 	.section-title {
@@ -619,22 +634,10 @@ body {
 		font-size: 31px;
 
 		&--small {
-			font-size: 18px;
+			font-size: 31px;
 		}
 	}
 
-	.section {
-		&--what-is-it {
-			.sunglass-flashing {
-				width: 300px;
-				height: 150px;
-			}
-		}
-	}
-}
-
-// Medium devices (tablets, 768px and down)
-@media screen and (max-width: 768px) {
 	.section {
 		&--second {
 			width: 100%;
@@ -642,6 +645,11 @@ body {
 		}
 
 		&--what-is-it {
+			.sunglass-flashing {
+				width: 300px;
+				height: 150px;
+			}
+
 			.container {
 				flex-direction: column-reverse;
 				justify-content: center;
@@ -667,14 +675,50 @@ body {
 				}
 			}
 		}
-	}
 
+		&--wdiw-1 {
+			.container {
+				flex-direction: column-reverse;
+				justify-content: center;
+			}
+
+			.section {
+				&__image {
+					padding: 0;
+				}
+			}
+
+			.section-title {
+				width: 550px;
+				max-width: 100%;
+				text-align: center;
+				margin: 0 auto 40px;
+			}
+		}
+	}
+}
+
+// Medium devices (tablets, 768px and down)
+@media screen and (max-width: 768px) {
 	.modal {
 		padding: 10px;
 
 		&__close {
 			top: 15px;
     		right: 15px;
+		}
+	}
+
+	.section {
+		&--wdiw-1 {
+			.section {
+				&__image {
+					svg {
+						width: 284px;
+						height: 284px;
+					}
+				}
+			}
 		}
 	}
 }
