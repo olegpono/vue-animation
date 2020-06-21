@@ -1,9 +1,19 @@
 <template>
   <div class="sunglasse-squares" @inview="play">
-    <svg-icon :name="dynamicIcon" class="left-top" />
-    <svg-icon name="sunglass-square" class="right-top" />
-    <svg-icon name="sunglass-square" class="left-bottom" />
-    <svg-icon :name="dynamicIcon" class="right-bottom" />
+    <template v-if="squares.length">
+      <svg-icon
+        v-for="(square, index) in squares"
+        :key="index"
+        :name="square"
+        :class="classes[index]"
+      />
+    </template>
+    <template v-else>
+      <svg-icon :name="dynamicIcon" class="left-top" />
+      <svg-icon name="sunglass-square" class="right-top" />
+      <svg-icon name="sunglass-square" class="left-bottom" />
+      <svg-icon :name="dynamicIcon" class="right-bottom" />
+    </template>
   </div>
 </template>
 
@@ -18,11 +28,16 @@ export default {
     green: {
       type: Boolean,
       default: false
+    },
+    squares: {
+      type: Array,
+      default: () => []
     }
   },
   data() {
     return {
-      tl: null
+      tl: null,
+      classes: ['left-top', 'right-top', 'left-bottom', 'right-bottom']
     }
   },
   computed: {

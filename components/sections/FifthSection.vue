@@ -27,7 +27,7 @@ export default {
     return {
       animationOption: {
         name: 'fade-in-up',
-        delay: 0.5,
+        delay: 1,
         duration: 1
       }
     }
