@@ -18,8 +18,8 @@ const animations = {
     finish: { xPercent: 0 }
   },
   split: {
-    start: { opacity: 0, y: 30 },
-    finish: { opacity: 1, x: 0 }
+    start: { opacity: 0, y: 40 },
+    finish: { opacity: 1, y: 0 }
   },
   'typing-effect': {
     start: { display: 'block' },

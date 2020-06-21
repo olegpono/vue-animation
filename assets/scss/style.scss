@@ -353,6 +353,12 @@ body {
 		}
 	}
 
+	&--gray {
+		.container {
+			background-color: $gray;
+		}
+	}
+
 	&--what-is-it {
 		.section {
 			&__image {
@@ -501,6 +507,27 @@ body {
 	}
 }
 
+.section-text {
+	display: flex;
+	width: 1440px;
+	max-width: 100%;
+	font-size: 44px;
+	color: $silver;
+	font-weight: 600;
+	margin: 0 auto;
+
+	&__left,
+	&__right {
+		flex-basis: 50%;
+	}
+
+	&__left {
+		.green {
+			color: $green-light;
+		}
+	}
+}
+
 .intercom-launcher,
 .intercom-lightweight-app {
 	z-index: $intercomeIndex !important;
@@ -607,6 +634,10 @@ body {
 				height: 200px;
 			}
 		}
+	}
+
+	.section-text {
+		font-size: 31px;
 	}
 }
 
@@ -777,6 +808,24 @@ body {
 				max-width: 100%;
 				text-align: center;
 				margin: 0 auto 50px;
+			}
+		}
+	}
+
+	.section-text {
+		width: 550px;
+		max-width: 100%;
+		flex-direction: column;
+		text-align: center;
+
+		&__left {
+			margin-bottom: 40px;
+		}
+
+		&__left,
+		&__right {
+			> div {
+				text-align: center !important;
 			}
 		}
 	}
