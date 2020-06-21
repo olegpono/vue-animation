@@ -1,10 +1,9 @@
 <template>
-  <!-- eslint-disable prettier/prettier -->
   <div class="sunglasse-squares" @inview="play">
-    <svg-icon name="sunglass-square" class="left-top" />
+    <svg-icon :name="dynamicIcon" class="left-top" />
     <svg-icon name="sunglass-square" class="right-top" />
     <svg-icon name="sunglass-square" class="left-bottom" />
-    <svg-icon name="sunglass-square" class="right-bottom" />
+    <svg-icon :name="dynamicIcon" class="right-bottom" />
   </div>
 </template>
 
@@ -15,11 +14,20 @@ export default {
     delay: {
       type: Number,
       default: 1
+    },
+    green: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
     return {
       tl: null
+    }
+  },
+  computed: {
+    dynamicIcon() {
+      return this.green ? 'sunglass-square-green' : 'sunglass-square'
     }
   },
   beforeDestroy() {
@@ -33,13 +41,9 @@ export default {
   },
   methods: {
     setAnimation() {
-      console.warn(
-        '.sunglasse-squares svg >>',
-        this.$el.querySelectorAll('svg')
-      )
       const options = { opacity: 1, scale: 1, ease: Back.easeOut }
       this.tl = new TimelineMax({ paused: true, delay: this.delay })
-      this.tl.staggerTo('.sunglasse-squares svg', 0.5, options, 0.5)
+      this.tl.staggerTo(this.$el.querySelectorAll('svg'), 0.5, options, 0.5)
     },
     play() {
       this.tl.play()

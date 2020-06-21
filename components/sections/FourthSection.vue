@@ -11,7 +11,7 @@
         </div>
       </h2>
       <div class="section__image">
-        <SunglassesAnimation />
+        <SunglassesAnimation :delay="1.5" />
       </div>
     </div>
   </section>

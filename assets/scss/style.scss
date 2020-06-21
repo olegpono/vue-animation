@@ -397,6 +397,14 @@ body {
 			}
 		}
 	}
+
+	&--wdiw-3 {
+		.section {
+			&__image {
+				padding-left: 7%;
+			}
+		}
+	}
 }
 
 .fp-scroller {
@@ -735,6 +743,26 @@ body {
 				text-align: center;
 				margin: 0 auto 50px;
 				flex-grow: inherit;
+			}
+		}
+
+		&--wdiw-3 {
+			.container {
+				flex-direction: column-reverse;
+				justify-content: center;
+			}
+
+			.section {
+				&__image {
+					padding-left: 0;
+				}
+			}
+
+			.section-title {
+				width: 550px;
+				max-width: 100%;
+				text-align: center;
+				margin: 0 auto 50px;
 			}
 		}
 	}
