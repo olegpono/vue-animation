@@ -25,11 +25,9 @@ export default {
   data() {
     return {
       animationOption: {
-        options: {
-          name: 'fade-in-up',
-          delay: 0.5,
-          duration: 1
-        }
+        name: 'fade-in-up',
+        delay: 1,
+        duration: 1
       }
     }
   }

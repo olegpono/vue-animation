@@ -1,28 +1,36 @@
 <template>
-  <section class="section section--purple">
+  <section class="section section--purple section--wdiw-2">
     <div class="container container--text-center">
       <h2
         v-animate="animationOption"
         class="section-title section-title--small section-title--left"
       >
-        Based on your inputs, out algorithm automatically searches our portfolio
-        and presents products that are specific to your needs
+        <div class="text">
+          Based on your inputs, out algorithm automatically searches our
+          portfolio and presents products that are specific to your needs
+        </div>
       </h2>
+      <div class="section__image">
+        <SunglassesAnimation />
+      </div>
     </div>
   </section>
 </template>
 
 <script>
+import SunglassesAnimation from '~/components/SunglassesAnimation'
+
 export default {
   name: 'FourthSection',
+  components: {
+    SunglassesAnimation
+  },
   data() {
     return {
       animationOption: {
-        options: {
-          name: 'fade-in-up',
-          delay: 0.5,
-          duration: 1
-        }
+        name: 'fade-in-up',
+        delay: 1,
+        duration: 1
       }
     }
   }

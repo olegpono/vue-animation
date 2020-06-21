@@ -17,7 +17,7 @@
       </h2>
       <div class="section__image">
         <SunglassFlashing
-          v-animate="{ name: 'fade-in', delay: 0.5, duration: 1 }"
+          v-animate="{ name: 'fade-in', delay: 1.5, duration: 1 }"
         />
       </div>
     </div>
@@ -41,7 +41,7 @@ export default {
             el: '.text',
             options: {
               name: 'fade-in-up',
-              delay: 0.5,
+              delay: 1,
               duration: 1
             }
           }
