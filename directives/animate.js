@@ -6,7 +6,7 @@ const animations = {
     finish: { opacity: 1 }
   },
   'fade-in-up': {
-    start: { opacity: 0, y: 20, force3D: false },
+    start: { opacity: 0, y: 30, force3D: false },
     finish: { opacity: 1, y: 0 }
   },
   'fade-in-right': {

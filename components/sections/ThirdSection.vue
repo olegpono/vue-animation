@@ -2,7 +2,7 @@
   <section class="section section--purple section--wdiw-1">
     <div class="container container--text-center">
       <div class="section__image">
-        <svg-icon name="checks-image" />
+        <ChecksDrawing />
       </div>
       <h2
         v-animate="animationOption"
@@ -15,8 +15,13 @@
 </template>
 
 <script>
+import ChecksDrawing from '~/components/ChecksDrawing'
+
 export default {
   name: 'ThirdSection',
+  components: {
+    ChecksDrawing
+  },
   data() {
     return {
       animationOption: {
