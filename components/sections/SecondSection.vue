@@ -18,6 +18,7 @@
       <div class="section__image">
         <SunglassFlashing
           v-animate="{ name: 'fade-in', delay: 1.5, duration: 1 }"
+          :image="require('~/assets/images/sunglass-with-shadow.png')"
         />
       </div>
     </div>

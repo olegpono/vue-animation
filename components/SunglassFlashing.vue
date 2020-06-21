@@ -3,7 +3,7 @@
   <div class="sunglass-flashing" @inview="play">
     <img
       ref="sunglass"
-      src="~/assets/images/sunglass-with-shadow.png"
+      :src="image"
       class="sunglass-flashing__image"
       alt="sunglass"
     />
@@ -25,6 +25,16 @@
 <script>
 export default {
   name: 'SunglassFlashing',
+  props: {
+    image: {
+      type: String,
+      required: true
+    },
+    delay: {
+      type: Number,
+      default: 1.5
+    }
+  },
   data() {
     return {
       tl: null
@@ -54,7 +64,7 @@ export default {
         paused: true,
         repeat: -1,
         yoyo: true,
-        delay: 1.5
+        delay: this.delay
       })
       this.tl
         .to(brightBorder, 1, { opacity: 1, ease: Bounce.easeOut })
