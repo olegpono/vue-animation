@@ -359,6 +359,12 @@ body {
 		}
 	}
 
+	&--gray-light {
+		.container {
+			background-color: $gray-light;
+		}
+	}
+
 	&--what-is-it {
 		.section {
 			&__image {
@@ -526,6 +532,27 @@ body {
 			color: $green-light;
 		}
 	}
+
+	&__quote {
+		width: 1070px;
+		max-width: 100%;
+		margin: 0 auto;
+
+		&-text {
+			color: $gray;
+			font-size: 44px;
+			font-weight: 600;
+			text-align: center;
+			margin-bottom: 65px;
+		}
+
+		&-author {
+			color: $gray;
+			font-size: 20px;
+			font-weight: 600;
+			text-align: center;
+		}
+	}
 }
 
 .intercom-launcher,
@@ -638,6 +665,16 @@ body {
 
 	.section-text {
 		font-size: 31px;
+
+		&__quote {	
+			&-text {
+				font-size: 36px;
+			}
+		}
+
+		&--full-width {
+			width: 100% !important;
+		}
 	}
 }
 
@@ -851,6 +888,19 @@ body {
 						height: 284px;
 					}
 				}
+			}
+		}
+	}
+
+	.section-text {
+		&__quote {	
+			&-text {
+				font-size: 31px;
+				margin-bottom: 40px;
+			}
+
+			&-author {
+				font-size: 15px;
 			}
 		}
 	}

@@ -12,6 +12,7 @@
       <NinethSection />
       <TenthSection />
       <FeaturesSection />
+      <QuoteSection />
     </full-page>
   </no-ssr>
 </template>
@@ -31,6 +32,7 @@ import EighthSection from '~/components/sections/EighthSection'
 import NinethSection from '~/components/sections/NinethSection'
 import TenthSection from '~/components/sections/TenthSection'
 import FeaturesSection from '~/components/sections/FeaturesSection'
+import QuoteSection from '~/components/sections/QuoteSection'
 
 export default {
   name: 'Body',
@@ -46,7 +48,8 @@ export default {
     EighthSection,
     NinethSection,
     TenthSection,
-    FeaturesSection
+    FeaturesSection,
+    QuoteSection
   },
   mixins: [FullPageMixin],
   mounted() {
