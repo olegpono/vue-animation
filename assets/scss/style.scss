@@ -693,6 +693,14 @@ body {
 	opacity: 0;
 }
 
+.fade-slow-enter-active, .fade-slow-leave-active {
+	transition: opacity 1s;
+}
+
+.fade-slow-enter, .fade-slow-leave-to {
+	opacity: 0;
+}
+
 @media screen and (max-width: 1440px) {
 	.section {
 		&--wdiw-1 {
