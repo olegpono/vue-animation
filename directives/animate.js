@@ -21,9 +21,9 @@ const animations = {
     start: { opacity: 0, y: 40 },
     finish: { opacity: 1, y: 0 }
   },
-  'typing-effect': {
-    start: { display: 'block' },
-    finish: { display: 'none' }
+  'fade-in-scale': {
+    start: { opacity: 0, scale: 0.85 },
+    finish: { opacity: 1, scale: 1 }
   },
   'move-up': {
     start: { y: 10 },
