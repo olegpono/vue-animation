@@ -1,5 +1,5 @@
 <template>
-  <div class="sunglasse-squares" @inview="play">
+  <div class="squares-animation" @inview="play">
     <template v-if="squares.length">
       <svg-icon
         v-for="(square, index) in squares"
@@ -8,18 +8,26 @@
         :class="classes[index]"
       />
     </template>
+    <template v-else-if="green">
+      <svg-icon
+        v-for="(square, index) in greenSunglassesArray"
+        :key="index"
+        :name="square"
+        :class="classes[index]"
+      />
+    </template>
     <template v-else>
-      <svg-icon :name="dynamicIcon" class="left-top" />
+      <svg-icon name="sunglass-square" class="left-top" />
       <svg-icon name="sunglass-square" class="right-top" />
       <svg-icon name="sunglass-square" class="left-bottom" />
-      <svg-icon :name="dynamicIcon" class="right-bottom" />
+      <svg-icon name="sunglass-square" class="right-bottom" />
     </template>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'SunglassesAnimation',
+  name: 'SquaresAnimation',
   props: {
     delay: {
       type: Number,
@@ -37,6 +45,7 @@ export default {
   data() {
     return {
       tl: null,
+      greenSunglassesArray: [],
       classes: ['left-top', 'right-top', 'left-bottom', 'right-bottom']
     }
   },
@@ -48,6 +57,9 @@ export default {
   beforeDestroy() {
     this.$observer.unobserve(this.$el)
   },
+  created() {
+    this.setGreenSquares()
+  },
   async mounted() {
     this.$observer.observe(this.$el)
 
@@ -55,6 +67,15 @@ export default {
     this.setAnimation()
   },
   methods: {
+    setGreenSquares() {
+      const greenSquares = this.getTwoNumbers()
+      for (let i = 0; i < 4; i++) {
+        const icon = greenSquares.includes(i)
+          ? 'sunglass-square-green'
+          : 'sunglass-square'
+        this.greenSunglassesArray.push(icon)
+      }
+    },
     setAnimation() {
       const options = { opacity: 1, scale: 1, ease: Back.easeOut }
       this.tl = new TimelineMax({ paused: true, delay: this.delay })
@@ -62,13 +83,26 @@ export default {
     },
     play() {
       this.tl.play()
+    },
+    getTwoNumbers() {
+      const first = this.getRandomFromRange(0, 3)
+      let second = first
+      while (second === first) {
+        second = this.getRandomFromRange(0, 3)
+      }
+      return [first, second]
+    },
+    getRandomFromRange(min, max, except) {
+      const minValue = Math.ceil(min)
+      const maxValue = Math.floor(max)
+      return Math.floor(Math.random() * (maxValue - minValue + 1)) + minValue
     }
   }
 }
 </script>
 
 <style lang="scss">
-.sunglasse-squares {
+.squares-animation {
   width: 520px;
   display: flex;
   flex-wrap: wrap;
@@ -97,7 +131,7 @@ export default {
 }
 
 @media screen and (max-width: 1440px) {
-  .sunglasse-squares {
+  .squares-animation {
     width: 400px;
 
     svg {
@@ -108,7 +142,7 @@ export default {
 }
 
 @media screen and (max-width: 992px) {
-  .sunglasse-squares {
+  .squares-animation {
     width: 250px;
     height: 250px;
     margin: 0 auto;

@@ -2,7 +2,7 @@
   <section class="section section--purple section--wdiw-3">
     <div class="container container--text-center">
       <div class="section__image">
-        <SunglassesAnimation :delay="1.5" :green="true" />
+        <SquaresAnimation :delay="1.5" :green="true" />
       </div>
       <h2
         v-animate="animationOption"
@@ -16,12 +16,12 @@
 </template>
 
 <script>
-import SunglassesAnimation from '~/components/SunglassesAnimation'
+import SquaresAnimation from '~/components/SquaresAnimation'
 
 export default {
   name: 'FifthSection',
   components: {
-    SunglassesAnimation
+    SquaresAnimation
   },
   data() {
     return {

@@ -11,19 +11,19 @@
         </div>
       </h2>
       <div class="section__image">
-        <SunglassesAnimation :delay="1.5" />
+        <SquaresAnimation :delay="1.5" />
       </div>
     </div>
   </section>
 </template>
 
 <script>
-import SunglassesAnimation from '~/components/SunglassesAnimation'
+import SquaresAnimation from '~/components/SquaresAnimation'
 
 export default {
   name: 'FourthSection',
   components: {
-    SunglassesAnimation
+    SquaresAnimation
   },
   data() {
     return {

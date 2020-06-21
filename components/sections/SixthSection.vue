@@ -9,19 +9,19 @@
         management, quality control and delivery
       </h2>
       <div class="section__image">
-        <SunglassesAnimation :squares="squares" :delay="1.5" />
+        <SquaresAnimation :squares="squares" :delay="1.5" />
       </div>
     </div>
   </section>
 </template>
 
 <script>
-import SunglassesAnimation from '~/components/SunglassesAnimation'
+import SquaresAnimation from '~/components/SquaresAnimation'
 
 export default {
   name: 'SixthSection',
   components: {
-    SunglassesAnimation
+    SquaresAnimation
   },
   data() {
     return {
