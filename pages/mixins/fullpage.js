@@ -3,6 +3,7 @@ import isElement from 'lodash/isElement'
 export default {
   data() {
     return {
+      sectionsWithoutTransition: [4, 5, 6, 7, 8, 9, 10],
       options: {
         menu: '#menu',
         anchors: [
@@ -37,11 +38,15 @@ export default {
             }
           }
 
+          if (this.sectionsWithoutTransition.includes(nextSection.index + 1)) {
+            return true
+          }
+
           const height = window.innerHeight
           const ease = Power0.out
           const duration = 0.5
 
-          this.$root.$emit('active-section', nextSection.index)
+          this.$root.$emit('active-section', nextSection.index + 1)
 
           if (direction === 'down') {
             TweenMax.to(section.item, duration * 1.5, {
