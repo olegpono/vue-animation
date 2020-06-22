@@ -39,20 +39,24 @@ export default {
 
           const height = window.innerHeight
           const ease = Power0.out
-          const duration = 1
+          const duration = 0.5
 
           this.$root.$emit('active-section', nextSection.index)
 
           if (direction === 'down') {
-            TweenMax.to(section.item, duration, {
-              y: height,
+            TweenMax.to(section.item, duration * 1.5, {
+              y: height * 0.9,
               ease
             })
-            TweenMax.to(section.item.querySelector('.container'), duration, {
-              opacity: 0,
-              scale: 0.95,
-              ease
-            })
+            TweenMax.to(
+              section.item.querySelector('.container'),
+              duration * 1.5,
+              {
+                opacity: 0,
+                scale: 0.98,
+                ease
+              }
+            )
           } else {
             TweenMax.to(
               nextSection.item.querySelector('.container'),
