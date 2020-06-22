@@ -19,8 +19,8 @@ export default {
       tl: null,
       animationOption: {
         name: 'fade-in',
-        delay: 1,
-        duration: 1
+        delay: 0.75,
+        duration: 0.75
       }
     }
   },
@@ -45,12 +45,12 @@ export default {
       }
       this.tl = new TimelineMax({
         paused: true,
-        delay: 3,
+        delay: 1.5,
         onComplete: this.onComplete
       })
       this.tl
-        .to(scalableText, 2, { scale: 100, ease: Power4.easeIn })
-        .to(container, 1, options, '-=0.75')
+        .to(scalableText, 1.75, { scale: 100, ease: Power4.easeIn })
+        .to(container, 0.75, options, '-=0.75')
     },
     onComplete() {
       this.$root.$emit('go-next')

@@ -36,21 +36,21 @@ export default {
             options: {
               name: 'fade-in-up',
               delay: 0.75,
-              duration: 1
+              duration: 0.75
             }
           },
           {
             el: '.sunglasses-container__wrapper',
             options: {
               name: 'fade-in-scale',
-              duration: 1
+              duration: 0.75
             }
           },
           {
             el: '.sunglasses-container__button',
             options: {
               name: 'fade-in',
-              duration: 0.75
+              duration: 0.5
             }
           }
         ]

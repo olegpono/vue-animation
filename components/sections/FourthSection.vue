@@ -11,7 +11,7 @@
         </div>
       </h2>
       <div class="section__image">
-        <SquaresAnimation :delay="1.5" />
+        <SquaresAnimation :delay="1.25" />
       </div>
     </div>
   </section>
@@ -29,8 +29,8 @@ export default {
     return {
       animationOption: {
         name: 'fade-in-up',
-        delay: 1,
-        duration: 1
+        delay: 0.75,
+        duration: 0.75
       }
     }
   }
