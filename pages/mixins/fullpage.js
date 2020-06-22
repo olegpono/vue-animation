@@ -1,9 +1,13 @@
+import get from 'lodash/get'
 import isElement from 'lodash/isElement'
 
 export default {
   data() {
     return {
-      sectionsWithoutTransition: [4, 5, 6, 7, 8, 9, 10],
+      withoutTransition: {
+        up: [3, 4, 5, 6, 8, 9],
+        down: [4, 5, 6, 7, 8, 9, 10]
+      },
       options: {
         menu: '#menu',
         anchors: [
@@ -25,6 +29,7 @@ export default {
         scrollingSpeed: 1000,
         easing: 'none',
         onLeave: (section, nextSection, direction) => {
+          const nextSectionId = nextSection.index + 1
           // Hack to fix apple trackpad and mouses issue for overflowed sections
           // TODO: here we have to use jQuery / refactor it
           const leavingSection = $(section.item)
@@ -38,7 +43,13 @@ export default {
             }
           }
 
-          if (this.sectionsWithoutTransition.includes(nextSection.index + 1)) {
+          const isDisabledTransition = get(
+            this.withoutTransition,
+            [direction],
+            []
+          ).includes(nextSectionId)
+
+          if (isDisabledTransition) {
             return true
           }
 
@@ -46,7 +57,7 @@ export default {
           const ease = Power0.out
           const duration = 0.5
 
-          this.$root.$emit('active-section', nextSection.index + 1)
+          this.$root.$emit('active-section', nextSectionId)
 
           if (direction === 'down') {
             TweenMax.to(section.item, duration * 1.5, {
@@ -63,6 +74,11 @@ export default {
               }
             )
           } else {
+            TweenMax.set(nextSection.item, { y: height * 0.9 })
+            TweenMax.set(nextSection.item.querySelector('.container'), {
+              opacity: 0,
+              scale: 0.98
+            })
             TweenMax.to(
               nextSection.item.querySelector('.container'),
               // eslint-disable-next-line prettier/prettier
@@ -79,6 +95,14 @@ export default {
           }
         }
       }
+    }
+  },
+  created() {
+    this.$root.$on('update-without-transition', this.updateWithoutHandler)
+  },
+  methods: {
+    updateWithoutHandler(array) {
+      this.withoutTransition = array
     }
   }
 }

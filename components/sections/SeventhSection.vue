@@ -36,6 +36,7 @@ export default {
   methods: {
     play() {
       this.tl.play()
+      this.$root.$emit('setAllowScrolling', false)
     },
     setAnimation() {
       const { scalableText, container } = this.$refs
@@ -54,11 +55,14 @@ export default {
     },
     onComplete() {
       this.$root.$emit('go-next')
-      this.$root.$emit('setAllowScrolling', false)
       setTimeout(() => {
         this.tl.stop()
         this.tl.progress(0)
         this.$root.$emit('setAllowScrolling', true)
+        this.$root.$emit('update-without-transition', {
+          up: [3, 4, 5, 6, 8, 9],
+          down: [4, 5, 6, 7, 9, 10]
+        })
       }, 3000)
     }
   }
