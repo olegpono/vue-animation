@@ -1,3 +1,5 @@
+import isElement from 'lodash/isElement'
+
 export default {
   data() {
     return {
@@ -22,6 +24,19 @@ export default {
         scrollingSpeed: 1000,
         easing: 'none',
         onLeave: (section, nextSection, direction) => {
+          // Hack to fix apple trackpad and mouses issue for overflowed sections
+          // TODO: here we have to use jQuery / refactor it
+          const leavingSection = $(section.item)
+          if (direction === 'down') {
+            if (isElement(section.item.querySelector('.section-end'))) {
+              const windowHeight = $(window).height()
+              const leftToEnd = leavingSection.find('.section-end').offset().top
+              if (leftToEnd > windowHeight) {
+                return false
+              }
+            }
+          }
+
           const height = window.innerHeight
           const ease = Power0.out
           const duration = 1

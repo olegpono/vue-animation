@@ -11,7 +11,7 @@
             <SunglassFlashing :image="require('~/assets/images/sunglass-pink.png')" :delay="0.5" />
           </div>
         </div>
-        <button class="sunglasses-container__button">
+        <button class="sunglasses-container__button" @click="openModal">
           <svg-icon name="right-arrow" />KEEP ME UPDATED
         </button>
       </div>
@@ -55,6 +55,11 @@ export default {
           }
         ]
       }
+    }
+  },
+  methods: {
+    openModal() {
+      this.$root.$emit('openModal')
     }
   }
 }

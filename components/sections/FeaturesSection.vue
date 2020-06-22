@@ -1,6 +1,6 @@
 <template>
   <!-- eslint-disable prettier/prettier -->
-  <section class="section section--green" @inview="play">
+  <section class="section section--green">
     <div class="container container--text-center">
       <div class="features">
         <h2 v-animate="animationOption" class="features__title">What’s under the hood?</h2>
@@ -13,6 +13,7 @@
             :paragraphs="feature.paragraphs"
           />
         </div>
+        <div class="section-end" />
       </div>
     </div>
   </section>
@@ -107,6 +108,17 @@ export default {
 .features {
   width: 100%;
   padding: 200px 0;
+  position: relative;
+
+  .section-end {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    opacity: 0;
+    height: 1px;
+  }
 
   &__title {
     font-size: 44px;

@@ -63,8 +63,8 @@ export default {
     goToNext() {
       this.$refs.fullpage.api.moveSectionDown()
     },
-    setAllowScrollingHandler(value) {
-      this.$refs.fullpage.api.setAllowScrolling(value)
+    setAllowScrollingHandler(value, direction) {
+      this.$refs.fullpage.api.setAllowScrolling(...arguments)
     }
   }
 }
