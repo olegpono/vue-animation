@@ -443,6 +443,12 @@ body {
 			}
 		}
 	}
+
+	&--feature-gray {
+		.container {
+			background-color: $silver-light;
+		}
+	}
 }
 
 .section-title {
