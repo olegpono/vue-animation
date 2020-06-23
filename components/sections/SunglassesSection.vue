@@ -50,7 +50,7 @@ export default {
         autoPlay: 4000
       },
       sliderImages: [
-        require('~/assets/images/sunglass-blue-2.png'),
+        require('~/assets/images/sunglass-blue.png'),
         require('~/assets/images/sunglass-violet.png'),
         require('~/assets/images/sunglass-pink.png'),
         require('~/assets/images/sunglass-blue-light.png'),
