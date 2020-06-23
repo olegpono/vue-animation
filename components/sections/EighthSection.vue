@@ -1,8 +1,8 @@
 <template>
   <!-- eslint-disable prettier/prettier -->
-  <section class="section section--gray" data-observer-repeat="true" @inview="disableScrolling">
+  <section class="section section--gray" data-observer-repeat="true" @inview="inview">
     <div class="container container--text-center">
-      <div v-animate="animationOption" class="section-text">
+      <div class="section-text">
         <h2 class="section-text__left">
           Who’s it for?
           <div ref="greenText" class="green">{{ greenText }}</div>
@@ -22,6 +22,7 @@ export default {
   name: 'EighthSection',
   data() {
     return {
+      tl: null,
       preStep: 0,
       step: 0,
       disabled: false,
@@ -30,27 +31,27 @@ export default {
         'Create a beautiful and highly commercial private label quickly',
         'Reduce time, travel and operation costs, whilst staying up to date with the latest trends and products',
         'With access to 1000’s of frames and logistics covered – you can focus on designing the perfect collection'
-      ],
-      animationOption: {
-        stagger: [
-          {
-            el: '.section-text__left',
-            options: {
-              name: 'fade-in',
-              delay: 0.5,
-              duration: 0.75
-            }
-          },
-          {
-            el: '.section-text__right',
-            options: {
-              name: 'fade-in',
-              delay: 0.5,
-              duration: 0.75
-            }
-          }
-        ]
-      }
+      ]
+      // animationOption: {
+      //   stagger: [
+      //     {
+      //       el: '.section-text__left',
+      //       options: {
+      //         name: 'fade-in',
+      //         delay: 0.5,
+      //         duration: 0.75
+      //       }
+      //     },
+      //     {
+      //       el: '.section-text__right',
+      //       options: {
+      //         name: 'fade-in',
+      //         delay: 0.5,
+      //         duration: 0.75
+      //       }
+      //     }
+      //   ]
+      // }
     }
   },
   computed: {
@@ -81,6 +82,7 @@ export default {
   mounted() {
     this.$observer.observe(this.$el)
     this.$root.$on('onLeave', this.debounceHandler)
+    this.resetAnimation()
   },
   methods: {
     resetAll() {
@@ -96,6 +98,20 @@ export default {
     setStep(value) {
       this.step = value
     },
+    resetAnimation() {
+      const { greenText, rightText } = this.$refs
+      TweenMax.to([greenText, rightText], 0.5, { opacity: 0, y: 30 })
+    },
+    playAnimation() {
+      const { greenText, rightText } = this.$refs
+      TweenMax.staggerFromTo(
+        [greenText, rightText],
+        0.5,
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, delay: 1 },
+        0
+      )
+    },
     debounceHandler: debounce(
       function() {
         this.handleOnLeave(...arguments)
@@ -107,6 +123,10 @@ export default {
       }
     ),
     handleOnLeave({ section, nextSection, direction }) {
+      if (this.$el.isEqualNode(nextSection.item)) {
+        this.playAnimation()
+      }
+
       if (!this.$el.isEqualNode(section.item)) {
         return
       }
@@ -133,12 +153,16 @@ export default {
           break
       }
     },
+    inview() {
+      this.disableScrolling()
+    },
     disableScrolling() {
       this.disabled = true
       this.$root.$emit('setBlockScroll', { down: true, up: true })
     },
     enableScrolling() {
       this.disabled = false
+      this.resetAnimation()
       this.$root.$emit('setBlockScroll', { down: false, up: false })
     }
   }
