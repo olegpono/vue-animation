@@ -6,7 +6,7 @@ export default {
     return {
       blockScroll: { down: false, up: false },
       withoutTransition: {
-        up: [3, 4, 5, 6],
+        up: [3, 4, 5, 6, 7],
         down: [4, 5, 6, 7, 8]
       },
       options: {

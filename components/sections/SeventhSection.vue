@@ -1,5 +1,5 @@
 <template>
-  <section class="section section--purple" @inview="play">
+  <section class="section section--purple">
     <div ref="container" class="container container--text-center">
       <svg-icon
         ref="scalableText"
@@ -12,6 +12,8 @@
 </template>
 
 <script>
+import debounce from 'lodash/debounce'
+
 export default {
   name: 'SeventhSection',
   data() {
@@ -26,18 +28,15 @@ export default {
   },
   beforeDestroy() {
     this.$observer.unobserve(this.$el)
+    this.$root.$off('onLeave', this.debounceHandler)
   },
   async mounted() {
-    this.$observer.observe(this.$el)
+    this.$root.$on('onLeave', this.debounceHandler)
 
     await this.$nextTick()
     this.setAnimation()
   },
   methods: {
-    play() {
-      this.tl.play()
-      this.$root.$emit('setAllowScrolling', false)
-    },
     setAnimation() {
       const { scalableText, container } = this.$refs
       const options = {
@@ -46,24 +45,42 @@ export default {
       }
       this.tl = new TimelineMax({
         paused: true,
-        delay: 1.5,
-        onComplete: this.onComplete
+        onComplete: this.onComplete,
+        onReverseComplete: this.onReverseComplete
       })
       this.tl
         .to(scalableText, 1.75, { scale: 100, ease: Power4.easeIn })
         .to(container, 0.75, options, '-=0.75')
     },
     onComplete() {
+      this.$root.$emit('setBlockScroll', { down: false, up: false })
       this.$root.$emit('go-next')
-      setTimeout(() => {
-        this.tl.stop()
-        this.tl.progress(0)
-        this.$root.$emit('setAllowScrolling', true)
-        this.$root.$emit('updateWithoutTransition', {
-          up: [3, 4, 5, 6],
-          down: [4, 5, 6, 7]
-        })
-      }, 3000)
+    },
+    onReverseComplete() {
+      this.$root.$emit('setBlockScroll', { down: false, up: false })
+    },
+    debounceHandler: debounce(
+      function() {
+        this.handleOnLeave(...arguments)
+      },
+      500,
+      {
+        leading: true,
+        trailing: false
+      }
+    ),
+    handleOnLeave({ section, nextSection, direction }) {
+      if (this.$el.isEqualNode(nextSection.item) && direction === 'up') {
+        this.$root.$emit('setBlockScroll', { down: false, up: true })
+        setTimeout(() => {
+          this.tl.reverse()
+        }, 1000)
+      }
+
+      if (this.$el.isEqualNode(section.item) && direction === 'down') {
+        this.$root.$emit('setBlockScroll', { down: true, up: false })
+        this.tl.play()
+      }
     }
   }
 }
