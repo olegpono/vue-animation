@@ -6,7 +6,7 @@
         class="section-title section-title--small section-title--left"
       >
         <div class="text">
-          Based on your inputs, out algorithm automatically searches our
+          Based on your inputs, our algorithm automatically searches our
           portfolio and presents products that are specific to your needs
         </div>
       </h2>

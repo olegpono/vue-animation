@@ -13,7 +13,7 @@
           <a href="#what-is-it">What is it?</a>
         </li>
         <li>
-          <a href="#who-does-it-works">Who does it work?</a>
+          <a href="#who-does-it-works">How Does it work?</a>
         </li>
         <li>
           <a href="#whos-it-for">Who's it for?</a>
