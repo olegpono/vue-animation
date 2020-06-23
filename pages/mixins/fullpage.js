@@ -4,9 +4,10 @@ import isElement from 'lodash/isElement'
 export default {
   data() {
     return {
+      blockScroll: { down: false, up: false },
       withoutTransition: {
-        up: [3, 4, 5, 6, 8, 9],
-        down: [4, 5, 6, 7, 8, 9, 10]
+        up: [3, 4, 5, 6],
+        down: [4, 5, 6, 7, 8]
       },
       options: {
         menu: '#menu',
@@ -21,14 +22,17 @@ export default {
           'page8',
           'page9',
           'page10',
-          'page11',
-          'page12',
-          'page13'
+          'page11'
         ],
         scrollOverflow: true,
         scrollingSpeed: 1000,
         easing: 'none',
         onLeave: (section, nextSection, direction) => {
+          this.$root.$emit('onLeave', { section, nextSection, direction })
+          if (this.blockScroll[direction]) {
+            return false
+          }
+
           const nextSectionId = nextSection.index + 1
           // Hack to fix apple trackpad and mouses issue for overflowed sections
           // TODO: here we have to use jQuery / refactor it
@@ -98,11 +102,31 @@ export default {
     }
   },
   created() {
-    this.$root.$on('update-without-transition', this.updateWithoutHandler)
+    this.$root.$on('updateWithoutTransition', this.updateWithoutHandler)
+    this.$root.$on('setBlockScroll', this.setBlockScroll)
+    this.$root.$on('go-next', this.goToNext)
+    this.$root.$on('go-prev', this.goToPrev)
+    this.$root.$on('setAllowScrolling', this.setAllowScrollingHandler)
+  },
+  beforeDestoy() {
+    this.$root.$off('updateWithoutTransition', this.updateWithoutHandler)
+    this.$root.$off('setBlockScroll', this.setBlockScroll)
   },
   methods: {
+    goToNext() {
+      this.$refs.fullpage.api.moveSectionDown()
+    },
+    goToPrev() {
+      this.$refs.fullpage.api.moveSectionUp()
+    },
+    setAllowScrollingHandler(value, direction) {
+      this.$refs.fullpage.api.setAllowScrolling(...arguments)
+    },
     updateWithoutHandler(array) {
       this.withoutTransition = array
+    },
+    setBlockScroll(value) {
+      this.blockScroll = value
     }
   }
 }

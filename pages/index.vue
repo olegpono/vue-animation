@@ -9,8 +9,6 @@
       <SixthSection />
       <SeventhSection />
       <EighthSection />
-      <NinethSection />
-      <TenthSection />
       <FeaturesSection />
       <QuoteSection />
       <SunglassesSection />
@@ -30,8 +28,6 @@ import FifthSection from '~/components/sections/FifthSection'
 import SixthSection from '~/components/sections/SixthSection'
 import SeventhSection from '~/components/sections/SeventhSection'
 import EighthSection from '~/components/sections/EighthSection'
-import NinethSection from '~/components/sections/NinethSection'
-import TenthSection from '~/components/sections/TenthSection'
 import FeaturesSection from '~/components/sections/FeaturesSection'
 import QuoteSection from '~/components/sections/QuoteSection'
 import SunglassesSection from '~/components/sections/SunglassesSection'
@@ -48,24 +44,10 @@ export default {
     SixthSection,
     SeventhSection,
     EighthSection,
-    NinethSection,
-    TenthSection,
     FeaturesSection,
     QuoteSection,
     SunglassesSection
   },
-  mixins: [FullPageMixin],
-  mounted() {
-    this.$root.$on('go-next', this.goToNext)
-    this.$root.$on('setAllowScrolling', this.setAllowScrollingHandler)
-  },
-  methods: {
-    goToNext() {
-      this.$refs.fullpage.api.moveSectionDown()
-    },
-    setAllowScrollingHandler(value, direction) {
-      this.$refs.fullpage.api.setAllowScrolling(...arguments)
-    }
-  }
+  mixins: [FullPageMixin]
 }
 </script>

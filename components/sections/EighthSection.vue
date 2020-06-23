@@ -1,14 +1,14 @@
 <template>
   <!-- eslint-disable prettier/prettier -->
-  <section class="section section--gray">
+  <section class="section section--gray" data-observer-repeat="true" @inview="disableScrolling">
     <div class="container container--text-center">
       <div v-animate="animationOption" class="section-text">
         <h2 class="section-text__left">
           Who’s it for?
-          <div class="green">BRAND OWNERS</div>
+          <div ref="greenText" class="green">{{ greenText }}</div>
         </h2>
-        <p class="section-text__right">
-          Create a beautiful and highly commercial private label quickly
+        <p ref="rightText" class="section-text__right">
+          {{ rightText }}
         </p>
       </div>
     </div>
@@ -16,35 +16,130 @@
 </template>
 
 <script>
+import debounce from 'lodash/debounce'
+
 export default {
   name: 'EighthSection',
   data() {
     return {
+      preStep: 0,
+      step: 0,
+      disabled: false,
+      greenTexts: ['BRAND OWNERS', 'BUYERS', 'PRODUCT MANAGERS'],
+      rightTexts: [
+        'Create a beautiful and highly commercial private label quickly',
+        'Reduce time, travel and operation costs, whilst staying up to date with the latest trends and products',
+        'With access to 1000’s of frames and logistics covered – you can focus on designing the perfect collection'
+      ],
       animationOption: {
         stagger: [
           {
             el: '.section-text__left',
             options: {
-              name: 'split',
+              name: 'fade-in',
               delay: 0.5,
-              duration: 0.75,
-              splitText: true,
-              splitTextMode: 'lines',
-              iterateDelay: 0.15
+              duration: 0.75
             }
           },
           {
             el: '.section-text__right',
             options: {
-              name: 'split',
-              duration: 0.5,
-              splitText: true,
-              splitTextMode: 'lines',
-              iterateDelay: 0.15
+              name: 'fade-in',
+              delay: 0.5,
+              duration: 0.75
             }
           }
         ]
       }
+    }
+  },
+  computed: {
+    greenText() {
+      return this.greenTexts[this.step]
+    },
+    rightText() {
+      return this.rightTexts[this.step]
+    }
+  },
+  watch: {
+    preStep(value) {
+      const { greenText, rightText } = this.$refs
+      const tl = new TimelineMax()
+      tl.staggerTo([greenText, rightText], 0.5, {
+        opacity: 0,
+        onComplete: this.setStep.bind(null, value)
+      })
+      tl.staggerTo([greenText, rightText], 0.5, {
+        opacity: 1
+      })
+    }
+  },
+  beforeDestroy() {
+    this.$observer.unobserve(this.$el)
+    this.$root.$on('onLeave', this.debounceHandler)
+  },
+  mounted() {
+    this.$observer.observe(this.$el)
+    this.$root.$on('onLeave', this.debounceHandler)
+  },
+  methods: {
+    resetAll() {
+      this.setStep(0)
+      this.enableScrolling()
+    },
+    increasePreStep() {
+      this.preStep = this.preStep + 1
+    },
+    decreasePreStep() {
+      this.preStep = this.preStep - 1
+    },
+    setStep(value) {
+      this.step = value
+    },
+    debounceHandler: debounce(
+      function() {
+        this.handleOnLeave(...arguments)
+      },
+      500,
+      {
+        leading: true,
+        trailing: false
+      }
+    ),
+    handleOnLeave({ section, nextSection, direction }) {
+      if (!this.$el.isEqualNode(section.item)) {
+        return
+      }
+
+      if (!this.disabled) {
+        this.disableScrolling()
+      }
+
+      const maxStep = this.greenTexts.length - 1
+      switch (true) {
+        case direction === 'up' && this.step !== 0:
+          this.decreasePreStep()
+          return
+        case direction === 'down' && this.step <= maxStep - 1:
+          this.increasePreStep()
+          return
+        case direction === 'up' && this.step === 0:
+          this.enableScrolling()
+          this.$root.$emit('go-prev')
+          return
+        case direction === 'down' && this.step === maxStep:
+          this.enableScrolling()
+          this.$root.$emit('go-next')
+          break
+      }
+    },
+    disableScrolling() {
+      this.disabled = true
+      this.$root.$emit('setBlockScroll', { down: true, up: true })
+    },
+    enableScrolling() {
+      this.disabled = false
+      this.$root.$emit('setBlockScroll', { down: false, up: false })
     }
   }
 }

@@ -59,9 +59,9 @@ export default {
         this.tl.stop()
         this.tl.progress(0)
         this.$root.$emit('setAllowScrolling', true)
-        this.$root.$emit('update-without-transition', {
-          up: [3, 4, 5, 6, 8, 9],
-          down: [4, 5, 6, 7, 9, 10]
+        this.$root.$emit('updateWithoutTransition', {
+          up: [3, 4, 5, 6],
+          down: [4, 5, 6, 7]
         })
       }, 3000)
     }
