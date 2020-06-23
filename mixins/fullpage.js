@@ -10,7 +10,6 @@ export default {
         down: [4, 5, 6, 7, 8]
       },
       options: {
-        menu: '#menu',
         anchors: [
           'page1',
           'page2',

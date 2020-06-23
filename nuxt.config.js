@@ -69,6 +69,10 @@ export default {
       ssr: false
     },
     {
+      src: '~/plugins/flickity.js',
+      ssr: false
+    },
+    {
       src: '~/plugins/directives.js',
       ssr: false
     }

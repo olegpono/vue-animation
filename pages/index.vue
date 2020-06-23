@@ -18,7 +18,7 @@
 
 <script>
 import NoSsr from 'vue-no-ssr'
-import FullPageMixin from './mixins/fullpage'
+import FullPageMixin from '~/mixins/fullpage'
 
 import FirstSection from '~/components/sections/FirstSection'
 import SecondSection from '~/components/sections/SecondSection'
