@@ -1,6 +1,6 @@
 <template>
   <!-- eslint-disable prettier/prettier -->
-  <section :class="['section section--green', { 'section--feature-gray': isGray }]">
+  <section class="section section--green section--feature-gray">
     <div class="container container--text-center">
       <div class="features">
         <h2 v-animate="animationOption" class="features__title">What’s under the hood?</h2>
@@ -20,7 +20,6 @@
 </template>
 
 <script>
-import get from 'lodash/get'
 import Feature from '~/components/Feature'
 
 export default {
@@ -98,11 +97,6 @@ export default {
           ]
         }
       ]
-    }
-  },
-  computed: {
-    isGray() {
-      return get(this.$route, 'query.feature', '') === 'gray'
     }
   }
 }

@@ -73,6 +73,9 @@ export default {
       tl.staggerTo([greenText, rightText], 0.5, {
         opacity: 1
       })
+    },
+    step(value) {
+      this.$root.$emit('setPreventScroll', !!value)
     }
   },
   beforeDestroy() {

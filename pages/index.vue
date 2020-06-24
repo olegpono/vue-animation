@@ -10,7 +10,7 @@
       <SeventhSection />
       <EighthSection />
       <FeaturesSection />
-      <QuoteSection />
+      <!-- <QuoteSection /> -->
       <SunglassesSection />
     </full-page>
   </no-ssr>
@@ -29,7 +29,7 @@ import SixthSection from '~/components/sections/SixthSection'
 import SeventhSection from '~/components/sections/SeventhSection'
 import EighthSection from '~/components/sections/EighthSection'
 import FeaturesSection from '~/components/sections/FeaturesSection'
-import QuoteSection from '~/components/sections/QuoteSection'
+// import QuoteSection from '~/components/sections/QuoteSection'
 import SunglassesSection from '~/components/sections/SunglassesSection'
 
 export default {
@@ -45,7 +45,7 @@ export default {
     SeventhSection,
     EighthSection,
     FeaturesSection,
-    QuoteSection,
+    // QuoteSection,
     SunglassesSection
   },
   mixins: [FullPageMixin]

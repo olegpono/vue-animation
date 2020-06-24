@@ -4,12 +4,14 @@ import isElement from 'lodash/isElement'
 export default {
   data() {
     return {
+      preventScroll: false,
       blockScroll: { down: false, up: false },
       withoutTransition: {
         up: [3, 4, 5, 6, 7],
         down: [4, 5, 6, 7, 8]
       },
       options: {
+        lockAnchors: true,
         anchors: [
           'page1',
           'page2',
@@ -20,14 +22,20 @@ export default {
           'page7',
           'page8',
           'page9',
-          'page10',
-          'page11'
+          'page10'
+          // 'page11'
         ],
         scrollOverflow: true,
         scrollingSpeed: 1000,
         easing: 'none',
         onLeave: (section, nextSection, direction) => {
-          this.$root.$emit('onLeave', { section, nextSection, direction })
+          this.$root.$emit('onLeave', {
+            section,
+            nextSection,
+            direction,
+            blockScroll: this.blockScroll,
+            preventScroll: this.preventScroll
+          })
           if (this.blockScroll[direction]) {
             return false
           }
@@ -100,12 +108,15 @@ export default {
       }
     }
   },
+  // computed() {
+  // },
   created() {
     this.$root.$on('updateWithoutTransition', this.updateWithoutHandler)
     this.$root.$on('setBlockScroll', this.setBlockScroll)
     this.$root.$on('go-next', this.goToNext)
     this.$root.$on('go-prev', this.goToPrev)
     this.$root.$on('setAllowScrolling', this.setAllowScrollingHandler)
+    this.$root.$on('setPreventScroll', this.setPreventScrollHandler)
   },
   beforeDestoy() {
     this.$root.$off('updateWithoutTransition', this.updateWithoutHandler)
@@ -120,6 +131,9 @@ export default {
     },
     setAllowScrollingHandler(value, direction) {
       this.$refs.fullpage.api.setAllowScrolling(...arguments)
+    },
+    setPreventScrollHandler(value) {
+      this.preventScroll = value
     },
     updateWithoutHandler(array) {
       this.withoutTransition = array

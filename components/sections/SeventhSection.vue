@@ -49,8 +49,9 @@ export default {
         onReverseComplete: this.onReverseComplete
       })
       this.tl
-        .to(scalableText, 1.75, { scale: 100, ease: Power4.easeIn })
+        .to(scalableText, 1.75, { scale: 110, ease: Power4.easeIn })
         .to(container, 0.75, options, '-=0.75')
+        .to(scalableText, 0.15, { opacity: 0 })
     },
     onComplete() {
       this.$root.$emit('setBlockScroll', { down: false, up: false })
@@ -69,8 +70,10 @@ export default {
         trailing: false
       }
     ),
-    handleOnLeave({ section, nextSection, direction }) {
+    handleOnLeave({ section, nextSection, direction, preventScroll }) {
       if (this.$el.isEqualNode(nextSection.item) && direction === 'up') {
+        if (preventScroll) return
+
         this.$root.$emit('setBlockScroll', { down: false, up: true })
         setTimeout(() => {
           this.tl.reverse()
