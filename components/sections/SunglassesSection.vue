@@ -47,7 +47,7 @@ export default {
         wrapAround: true,
         accessibility: false,
         cellAlign: 'center',
-        autoPlay: 4000
+        autoPlay: 3000
       },
       sliderImages: [
         require('~/assets/images/sunglass-blue.png'),

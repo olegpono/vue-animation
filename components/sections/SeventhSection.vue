@@ -45,6 +45,7 @@ export default {
       }
       this.tl = new TimelineMax({
         paused: true,
+        onStart: this.onStart,
         onComplete: this.onComplete,
         onReverseComplete: this.onReverseComplete
       })
@@ -53,7 +54,11 @@ export default {
         .to(container, 0.75, options, '-=0.75')
         .to(scalableText, 0.15, { opacity: 0 })
     },
+    onStart() {
+      this.$root.$emit('setAllowScrolling', false)
+    },
     onComplete() {
+      this.$root.$emit('setAllowScrolling', true)
       this.$root.$emit('setBlockScroll', { down: false, up: false })
       this.$root.$emit('go-next')
     },

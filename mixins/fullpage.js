@@ -1,5 +1,7 @@
 import get from 'lodash/get'
 import isElement from 'lodash/isElement'
+import isObject from 'lodash/isObject'
+import isFunction from 'lodash/isFunction'
 
 export default {
   data() {
@@ -14,16 +16,15 @@ export default {
         lockAnchors: true,
         anchors: [
           'page1',
-          'page2',
-          'page3',
+          'what-is-it',
+          'how-does-it-works',
           'page4',
           'page5',
           'page6',
           'page7',
-          'page8',
-          'page9',
+          'whos-it-for',
+          'features',
           'page10'
-          // 'page11'
         ],
         scrollOverflow: true,
         scrollingSpeed: 1000,
@@ -108,8 +109,6 @@ export default {
       }
     }
   },
-  // computed() {
-  // },
   created() {
     this.$root.$on('updateWithoutTransition', this.updateWithoutHandler)
     this.$root.$on('setBlockScroll', this.setBlockScroll)
@@ -117,20 +116,35 @@ export default {
     this.$root.$on('go-prev', this.goToPrev)
     this.$root.$on('setAllowScrolling', this.setAllowScrollingHandler)
     this.$root.$on('setPreventScroll', this.setPreventScrollHandler)
+    this.$root.$on('goToSection', this.goToSectionHandler)
   },
   beforeDestoy() {
+    this.$root.$off('go-next', this.goToNext)
+    this.$root.$off('go-prev', this.goToPrev)
     this.$root.$off('updateWithoutTransition', this.updateWithoutHandler)
+    this.$root.$off('setPreventScroll', this.setPreventScrollHandler)
+    this.$root.$off('setAllowScrolling', this.setAllowScrollingHandler)
     this.$root.$off('setBlockScroll', this.setBlockScroll)
+    this.$root.$off('goToSection', this.goToSection)
   },
   methods: {
     goToNext() {
-      this.$refs.fullpage.api.moveSectionDown()
+      this.callFullPageMethod('moveSectionDown')
+      // this.$refs.fullpage.api.moveSectionDown()
     },
     goToPrev() {
-      this.$refs.fullpage.api.moveSectionUp()
+      this.callFullPageMethod('moveSectionUp')
+      // this.$refs.fullpage.api.moveSectionUp()
+    },
+    goToSection(anchor) {
+      this.$root.$emit('onGoToSection', anchor)
+      this.callFullPageMethod('moveTo', [anchor])
+      // this.$refs.fullpage.api.moveTo(anchor)
     },
     setAllowScrollingHandler(value, direction) {
-      this.$refs.fullpage.api.setAllowScrolling(...arguments)
+      this.callFullPageMethod('setAllowScrolling', arguments)
+      // if (!isFunction(this.$refs.fullpage.api.setAllowScrolling)) return
+      // this.$refs.fullpage.api.setAllowScrolling(...arguments)
     },
     setPreventScrollHandler(value) {
       this.preventScroll = value
@@ -140,6 +154,13 @@ export default {
     },
     setBlockScroll(value) {
       this.blockScroll = value
+    },
+    callFullPageMethod(method, args = []) {
+      const isFullpage = isObject(this.$refs.fullpage)
+      if (!isFullpage) return
+      if (isFunction(this.$refs.fullpage.api[method])) {
+        this.$refs.fullpage.api[method](...args)
+      }
     }
   }
 }

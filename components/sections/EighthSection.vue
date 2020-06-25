@@ -32,26 +32,6 @@ export default {
         'Reduce time, travel and operation costs, whilst staying up to date with the latest trends and products',
         'With access to 1000’s of frames and logistics covered – you can focus on designing the perfect collection'
       ]
-      // animationOption: {
-      //   stagger: [
-      //     {
-      //       el: '.section-text__left',
-      //       options: {
-      //         name: 'fade-in',
-      //         delay: 0.5,
-      //         duration: 0.75
-      //       }
-      //     },
-      //     {
-      //       el: '.section-text__right',
-      //       options: {
-      //         name: 'fade-in',
-      //         delay: 0.5,
-      //         duration: 0.75
-      //       }
-      //     }
-      //   ]
-      // }
     }
   },
   computed: {
@@ -80,11 +60,13 @@ export default {
   },
   beforeDestroy() {
     this.$observer.unobserve(this.$el)
-    this.$root.$on('onLeave', this.debounceHandler)
+    this.$root.$off('onLeave', this.debounceHandler)
+    this.$root.$off('onGoToSection', this.onNavigateHandler)
   },
   mounted() {
     this.$observer.observe(this.$el)
     this.$root.$on('onLeave', this.debounceHandler)
+    this.$root.$on('onGoToSection', this.onNavigateHandler)
     this.resetAnimation()
   },
   methods: {
@@ -154,6 +136,13 @@ export default {
           this.enableScrolling()
           this.$root.$emit('go-next')
           break
+      }
+    },
+    onNavigateHandler(anchor) {
+      debugger
+      const section = document.querySelector(`[data-anchor=${anchor}]`)
+      if (this.$el.isEqualNode(section)) {
+        this.playAnimation()
       }
     },
     inview() {
