@@ -92,12 +92,18 @@ export default {
               ease
             })
           }
+        },
+        afterLoad: (pastSection, section, direction) => {
+          const anchor = section.item.getAttribute('data-anchor')
+          this.$root.$emit('afterLoad', {
+            pastSection,
+            section,
+            direction,
+            anchor
+          })
         }
       }
     }
-  },
-  afterLoad: (pastSection, section, direction) => {
-    this.$root.$emit('afterLoad', { pastSection, section, direction })
   },
   created() {
     this.$root.$on('updateWithoutTransition', this.updateWithoutHandler)

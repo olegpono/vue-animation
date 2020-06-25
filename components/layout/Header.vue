@@ -10,7 +10,7 @@
     <nav ref="navigation" class="header__navigation">
       <ul id="menu" ref="menu">
         <li v-for="(link, index) in navigation" :key="index">
-          <a :href="`#${link.href}`" @click="goToSection(link)">{{ link.text }}</a>
+          <a :href="`#${link.href}`" :class="activeLink(link)" @click="goToSection(link)">{{ link.text }}</a>
         </li>
       </ul>
       <div ref="circle" class="header__navigation-circle" />
@@ -48,6 +48,7 @@ export default {
     return {
       tl: null,
       isOpen: false,
+      activeAnchor: null,
       navigation: [
         { href: 'what-is-it', text: 'What is it?' },
         { href: 'how-does-it-works', text: 'How Does it work?' },
@@ -56,14 +57,23 @@ export default {
       ]
     }
   },
+  computed: {
+    activeLink() {
+      return (link) => (link.href === this.activeAnchor ? 'active' : '')
+    }
+  },
   async mounted() {
     await this.$nextTick()
 
+    this.$root.$on('afterLoad', this.afterLoadHandler)
     if (window.innerWidth <= 992) {
       this.setAnimation()
     }
   },
   methods: {
+    afterLoadHandler({ anchor }) {
+      this.activeAnchor = anchor
+    },
     setAnimation() {
       const {
         navigation,

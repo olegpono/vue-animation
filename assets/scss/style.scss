@@ -151,17 +151,18 @@ body {
 				padding: 4px 10px;
 				transition: all .3s ease;
 
+				&.active,
 				&:hover {
 					color: $gray;
 					background-color: $green;
 				}
 			}
 
-			&.active {
-				a {
-					background-color: $gray;
-				}
-			}
+			// &.active {
+			// 	a {
+			// 		background-color: $gray;
+			// 	}
+			// }
 		}
 	}
 
@@ -273,15 +274,10 @@ body {
 				a {
 					color: $gray;
 	
+					&.active,
 					&:hover {
 						color: $green;
 						background-color: $gray;
-					}
-				}
-	
-				&.active {
-					a {
-						background-color: $green;
 					}
 				}
 			}
