@@ -139,7 +139,6 @@ export default {
       }
     },
     onNavigateHandler(anchor) {
-      debugger
       const section = document.querySelector(`[data-anchor=${anchor}]`)
       if (this.$el.isEqualNode(section)) {
         this.playAnimation()

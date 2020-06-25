@@ -106,7 +106,7 @@ export default {
     this.$root.$on('go-prev', this.goToPrev)
     this.$root.$on('setAllowScrolling', this.setAllowScrollingHandler)
     this.$root.$on('setPreventScroll', this.setPreventScrollHandler)
-    this.$root.$on('goToSection', this.goToSectionHandler)
+    this.$root.$on('goToSection', this.goToSection)
   },
   beforeDestoy() {
     this.$root.$off('go-next', this.goToNext)
