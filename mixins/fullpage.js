@@ -1,5 +1,4 @@
 import get from 'lodash/get'
-import isElement from 'lodash/isElement'
 import isObject from 'lodash/isObject'
 import isFunction from 'lodash/isFunction'
 
@@ -26,9 +25,10 @@ export default {
           'features',
           'page10'
         ],
-        scrollOverflow: true,
         scrollingSpeed: 1000,
         easing: 'none',
+        scrollOverflow: false,
+        normalScrollElements: '.features__list, .feature',
         onLeave: (section, nextSection, direction) => {
           this.$root.$emit('onLeave', {
             section,
@@ -42,19 +42,6 @@ export default {
           }
 
           const nextSectionId = nextSection.index + 1
-          // Hack to fix apple trackpad and mouses issue for overflowed sections
-          // TODO: here we have to use jQuery / refactor it
-          const leavingSection = $(section.item)
-          if (direction === 'down') {
-            if (isElement(section.item.querySelector('.section-end'))) {
-              const windowHeight = $(window).height()
-              const leftToEnd = leavingSection.find('.section-end').offset().top
-              if (leftToEnd > windowHeight) {
-                return false
-              }
-            }
-          }
-
           const isDisabledTransition = get(
             this.withoutTransition,
             [direction],
@@ -109,6 +96,9 @@ export default {
       }
     }
   },
+  afterLoad: (pastSection, section, direction) => {
+    this.$root.$emit('afterLoad', { pastSection, section, direction })
+  },
   created() {
     this.$root.$on('updateWithoutTransition', this.updateWithoutHandler)
     this.$root.$on('setBlockScroll', this.setBlockScroll)
@@ -130,21 +120,16 @@ export default {
   methods: {
     goToNext() {
       this.callFullPageMethod('moveSectionDown')
-      // this.$refs.fullpage.api.moveSectionDown()
     },
     goToPrev() {
       this.callFullPageMethod('moveSectionUp')
-      // this.$refs.fullpage.api.moveSectionUp()
     },
     goToSection(anchor) {
       this.$root.$emit('onGoToSection', anchor)
       this.callFullPageMethod('moveTo', [anchor])
-      // this.$refs.fullpage.api.moveTo(anchor)
     },
     setAllowScrollingHandler(value, direction) {
       this.callFullPageMethod('setAllowScrolling', arguments)
-      // if (!isFunction(this.$refs.fullpage.api.setAllowScrolling)) return
-      // this.$refs.fullpage.api.setAllowScrolling(...arguments)
     },
     setPreventScrollHandler(value) {
       this.preventScroll = value

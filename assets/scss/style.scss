@@ -670,6 +670,7 @@ body {
 
 		iframe {
 			position: relative;
+			z-index: 1;
 			width: 100%;
 			height: 100%;
 		}
@@ -678,6 +679,7 @@ body {
 	&__close {
 		cursor: pointer;
 		position: absolute;
+		z-index: 2;
 		top: -34px;
 		right: -34px;
 		
