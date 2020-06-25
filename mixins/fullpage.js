@@ -126,6 +126,8 @@ export default {
     },
     goToSection(anchor) {
       this.$root.$emit('onGoToSection', anchor)
+      this.setAllowScrollingHandler(true)
+      this.setBlockScroll({ down: false, up: false })
       this.callFullPageMethod('moveTo', [anchor])
     },
     setAllowScrollingHandler(value, direction) {
