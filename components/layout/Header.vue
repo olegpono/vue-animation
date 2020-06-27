@@ -2,10 +2,12 @@
   <!-- eslint-disable prettier/prettier -->
   <header :class="['header', { 'is-open': isOpen }]">
     <div class="header__logo">
-      <transition name="fade" mode="out-in">
-        <svg-icon v-if="inversion" name="logo-dark-gray" />
-        <svg-icon v-else name="logo" />
-      </transition>
+      <a href="/">
+        <transition name="fade" mode="out-in">
+          <svg-icon v-if="inversion" name="logo-dark-gray" />
+          <svg-icon v-else name="logo" />
+        </transition>
+      </a>
     </div>
     <nav ref="navigation" class="header__navigation">
       <ul id="menu" ref="menu">
@@ -116,6 +118,7 @@ export default {
         .to(menuButton, 0.25, { opacity: 1 })
     },
     goToSection({ href }) {
+      if (this.isOpen) this.tl.reverse()
       const activeSection = document.querySelector('section.section.active')
       const activeAnchor = isElement(activeSection)
         ? activeSection.getAttribute('data-anchor')
