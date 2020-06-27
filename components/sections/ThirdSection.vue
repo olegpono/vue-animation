@@ -105,6 +105,10 @@ export default {
       this.play(newStep, prevStep)
     }
   },
+  beforeDestroy() {
+    this.$root.$off('afterLoad', this.afterLoadHander)
+    this.$root.$off('onLeave', this.debounceOnLeaveHandler)
+  },
   async mounted() {
     this.$root.$on('afterLoad', this.afterLoadHander)
     this.$root.$on('onLeave', this.debounceOnLeaveHandler)

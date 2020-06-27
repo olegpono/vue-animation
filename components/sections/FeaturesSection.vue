@@ -3,7 +3,7 @@
   <section class="section section--green section--feature-gray">
     <div class="container container--text-center">
       <div class="features">
-        <div class="features__wrapper">
+        <div ref="wrapper" class="features__wrapper">
           <div class="section-start" />
           <h2 v-animate="animationOption" class="features__title">What’s under the hood?</h2>
           <div class="features__list">
@@ -104,13 +104,20 @@ export default {
       ]
     }
   },
+  computed: {
+    sectionAnchor() {
+      return this.$el.getAttribute('data-anchor')
+    }
+  },
   beforeDestroy() {
+    this.$root.$off('afterLoad', this.afterLoadHander)
     this.$el
       .querySelector('.features')
       .removeEventListener('scroll', this.throttleScrollHandler)
   },
   async mounted() {
     await this.$nextTick()
+    this.$root.$on('afterLoad', this.afterLoadHander)
     this.$el
       .querySelector('.features')
       .addEventListener('scroll', this.throttleScrollHandler)
@@ -123,6 +130,15 @@ export default {
       500,
       { leading: false }
     ),
+    afterLoadHander({ direction, anchor }) {
+      if (this.sectionAnchor !== anchor) return
+      if (direction === 'down') {
+        this.$refs.wrapper.scroll({
+          top: 10,
+          behavior: 'smooth'
+        })
+      }
+    },
     scrollHandler(e) {
       const elHeight = $(this.$el).height()
       const startOffset = $('.section-start').offset().top
