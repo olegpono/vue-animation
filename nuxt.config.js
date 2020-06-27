@@ -54,6 +54,7 @@ export default {
   plugins: [
     {
       src: '~/plugins/fullpage.js',
+      defer: true,
       ssr: false
     },
     {
@@ -62,6 +63,7 @@ export default {
     },
     {
       src: '~/plugins/typed-js.js',
+      defer: true,
       ssr: false
     },
     {

@@ -54,6 +54,7 @@
 </template>
 
 <script>
+import isNull from 'lodash/isNull'
 import debounce from 'lodash/debounce'
 import ChecksDrawing from '~/components/ChecksDrawing'
 import SquaresAnimation from '~/components/SquaresAnimation'
@@ -85,6 +86,9 @@ export default {
     },
     sectionAnchor() {
       return this.$el.getAttribute('data-anchor')
+    },
+    maxStep() {
+      return this.titles.length - 1
     }
   },
   watch: {
@@ -106,12 +110,12 @@ export default {
     },
     play(step, prevStep) {
       const tl = new TimelineMax()
-      if (typeof prevStep === 'number') {
+      if (!isNull(prevStep)) {
         tl.to(this.titles[prevStep], 0.5, { opacity: 0, y: 30 })
         tl.to(this.images[prevStep], 0.5, { opacity: 0 }, '-=0.5')
       }
 
-      if (step >= 0) {
+      if (!isNull(step) && step >= 0 && step <= this.maxStep) {
         tl.to(this.titles[step], 0.5, {
           delay: prevStep ? 0.5 : 0,
           opacity: 1,
@@ -119,7 +123,8 @@ export default {
           onComplete: () => {
             this.imagePlaying = true
           }
-        }).to(this.images[step], 0.5, { opacity: 1 })
+        })
+        tl.to(this.images[step], 0.5, { opacity: 1 })
         this.imagePlaying = false
       }
     },
@@ -146,19 +151,20 @@ export default {
       //   this.disableScrolling()
       // }
 
-      const maxStep = this.titles.length - 1
       switch (true) {
-        case direction === 'up' && this.step !== null:
+        case direction === 'up' && this.step >= 1:
           this.decreaseStep()
           return
-        case direction === 'down' && this.step <= maxStep:
+        case direction === 'down' && this.step < this.maxStep:
           this.increaseStep()
           return
-        case direction === 'up' && this.step === null:
+        case direction === 'up' && this.step === 0:
+          this.step = null
           this.enableScrolling()
           this.$root.$emit('go-prev')
           return
-        case direction === 'down' && this.step === maxStep:
+        case direction === 'down' && this.step === this.maxStep:
+          this.increaseStep()
           this.enableScrolling()
           this.$root.$emit('go-next')
           break
@@ -169,7 +175,7 @@ export default {
       if (direction === 'down') {
         this.step = 0
       } else {
-        this.step = 3
+        this.step = this.maxStep
       }
       this.disableScrolling()
     },
