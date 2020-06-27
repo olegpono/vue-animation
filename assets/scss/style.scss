@@ -478,6 +478,10 @@ body {
 	text-align: center;
 	text-transform: uppercase;
 
+	&__green {
+		color: $green;
+	}
+
 	&--small {
 		text-align: left;
 		text-transform: initial;
