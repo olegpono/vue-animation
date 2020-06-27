@@ -208,4 +208,16 @@ export default {
     }
   }
 }
+
+@media screen and (max-width: 768px) {
+  .squares-animation {
+    width: 200px;
+    height: 200px;
+
+    svg {
+      width: 200px;
+      height: 200px;
+    }
+  }
+}
 </style>

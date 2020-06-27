@@ -213,7 +213,9 @@ export default {
 
 @media screen and (max-width: 1200px) {
   .features {
-    padding: 150px 0;
+    &__wrapper {
+      padding: 150px 5%;
+    }
 
     &__list {
       .feature {
@@ -243,10 +245,14 @@ export default {
 
 @media screen and (max-width: 768px) {
   .features {
-    padding: 150px 0;
+    &__wrapper {
+      padding: 100px 5%;
+    }
 
     &__title {
+      font-size: 26px;
       margin-bottom: 45px;
+      text-align: center;
     }
 
     &__list {
@@ -272,9 +278,16 @@ export default {
         }
       }
     }
+  }
+
+  .feature {
+    &__image {
+      margin-bottom: 25px;
+    }
 
     &__title {
-      text-align: center;
+      font-size: 23px;
+      margin-bottom: 20px;
     }
   }
 }

@@ -1006,14 +1006,44 @@ body {
 		}
 	}
 
+	.section-title {
+		font-size: 23px;
+	}
+
+	.section-text {
+		font-size: 26px;
+
+		&__left {
+			margin-bottom: 30px;
+		}
+	}
+
 	.section-block {
 		&--one {
 			.section {
 				&__image {
 					svg {
-						width: 284px;
-						height: 284px;
+						width: 240px;
+    					height: 240px;
 					}
+				}
+			}
+		}
+
+		&--two,
+		&--three,
+		&--four {
+			.section-title {
+				margin-bottom: 30px;
+			}
+		}
+	}
+
+	.section {
+		&--what-is-it {
+			.section-title {
+				&--second {
+					font-size: 23px;
 				}
 			}
 		}
@@ -1063,6 +1093,17 @@ body {
 			&-button {
 				width: 100%;
 			}
+		}
+	}
+
+	.sunglasses-container {
+		&__title {
+			font-size: 23px;
+			margin-bottom: 30px;
+		}
+
+		&__slider {
+			margin-bottom: 40px;
 		}
 	}
 
