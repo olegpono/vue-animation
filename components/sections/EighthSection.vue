@@ -40,6 +40,9 @@ export default {
     },
     rightText() {
       return this.rightTexts[this.step]
+    },
+    sectionAnchor() {
+      return this.$el.getAttribute('data-anchor')
     }
   },
   watch: {
@@ -56,9 +59,6 @@ export default {
     },
     step(value) {
       this.$root.$emit('setPreventScroll', !!value)
-    },
-    sectionAnchor() {
-      return this.$el.getAttribute('data-anchor')
     }
   },
   beforeDestroy() {
@@ -105,9 +105,12 @@ export default {
     afterLoadHander({ direction, anchor }) {
       if (this.sectionAnchor !== anchor) return
       if (direction === 'down') {
+        this.preStep = 0
         this.setStep(0)
       } else {
-        this.setStep(this.greenTexts.length - 1)
+        const maxStep = this.greenTexts.length - 1
+        this.preStep = maxStep
+        this.setStep(maxStep)
       }
     },
     debounceHandler: debounce(

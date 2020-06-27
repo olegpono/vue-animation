@@ -133,10 +133,10 @@ export default {
     afterLoadHander({ direction, anchor }) {
       if (this.sectionAnchor !== anchor) return
       if (direction === 'down') {
-        this.$refs.wrapper.scroll({
-          top: 10,
-          behavior: 'smooth'
-        })
+        // this.$refs.wrapper.scroll({
+        //   top: 10,
+        //   behavior: 'smooth'
+        // })
       }
     },
     scrollHandler(e) {
