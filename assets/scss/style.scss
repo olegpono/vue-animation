@@ -361,6 +361,23 @@ body {
 		}
 	}
 
+	&--it-works {
+		.container {
+			position: relative;
+	  
+			.section-block {
+				display: flex;
+				align-items: center;
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				padding: 0 5%;
+			}
+		}
+	}
+
 	&--what-is-it {
 		.section {
 			&__image {
@@ -377,7 +394,15 @@ body {
 		}
 	}
 
-	&--wdiw-1 {
+	&--feature-gray {
+		.container {
+			background-color: $silver-light;
+		}
+	}
+}
+
+.section-block {
+	&--one {
 		.section {
 			&__image {
 				padding-left: 7%;
@@ -391,7 +416,7 @@ body {
 		}
 	}
 
-	&--wdiw-2 {
+	&--two {
 		.section {
 			&__image {
 				display: inline-flex;
@@ -411,7 +436,7 @@ body {
 		}
 	}
 
-	&--wdiw-3 {
+	&--three {
 		.section {
 			&__image {
 				padding-left: 7%;
@@ -420,7 +445,7 @@ body {
 	}
 
 
-	&--wdiw-4 {
+	&--four {
 		.section {
 			&__image {
 				display: inline-flex;
@@ -437,12 +462,6 @@ body {
 					margin-left: auto;
 				}
 			}
-		}
-	}
-
-	&--feature-gray {
-		.container {
-			background-color: $silver-light;
 		}
 	}
 }
@@ -705,8 +724,8 @@ body {
 }
 
 @media screen and (max-width: 1440px) {
-	.section {
-		&--wdiw-1 {
+	.section-block {
+		&--one {
 			.section {
 				&__image {
 					svg {
@@ -839,6 +858,10 @@ body {
 			justify-content: center;
 		}
 
+		&--it-works {
+
+		}
+
 		&--what-is-it {
 			.sunglass-flashing {
 				width: 300px;
@@ -870,12 +893,12 @@ body {
 				}
 			}
 		}
+	}
 
-		&--wdiw-1 {
-			.container {
-				flex-direction: column-reverse;
-				justify-content: center;
-			}
+	.section-block {
+		&--one {
+			flex-direction: column-reverse;
+			justify-content: center;
 
 			.section {
 				&__image {
@@ -891,12 +914,10 @@ body {
 			}
 		}
 
-		&--wdiw-2,
-		&--wdiw-4 {
-			.container {
-				flex-direction: column;
-				justify-content: center;
-			}
+		&--two,
+		&--four {
+			flex-direction: column;
+			justify-content: center;
 
 			.section {
 				&__image {
@@ -913,11 +934,9 @@ body {
 			}
 		}
 
-		&--wdiw-3 {
-			.container {
-				flex-direction: column-reverse;
-				justify-content: center;
-			}
+		&--three {
+			flex-direction: column-reverse;
+			justify-content: center;
 
 			.section {
 				&__image {
@@ -983,8 +1002,8 @@ body {
 		}
 	}
 
-	.section {
-		&--wdiw-1 {
+	.section-block {
+		&--one {
 			.section {
 				&__image {
 					svg {

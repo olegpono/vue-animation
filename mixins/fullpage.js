@@ -30,10 +30,12 @@ export default {
         scrollOverflow: false,
         normalScrollElements: '.features__list, .feature',
         onLeave: (section, nextSection, direction) => {
+          const anchor = section.item.getAttribute('data-anchor')
           this.$root.$emit('onLeave', {
             section,
             nextSection,
             direction,
+            anchor,
             blockScroll: this.blockScroll,
             preventScroll: this.preventScroll
           })
