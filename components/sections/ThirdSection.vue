@@ -3,7 +3,7 @@
     <div ref="container" class="container container--text-center">
       <div class="section-block section-block--one">
         <div class="section__image">
-          <ChecksDrawing :play="playAnimation(0)" :delay="0.25" />
+          <ChecksDrawing :play="playAnimation(0)" :delay="delay" />
         </div>
         <h2 class="section-title section-title--small section-title--right">
           Fill out a few questions about your label’s brand and target customer
@@ -18,7 +18,7 @@
           </div>
         </h2>
         <div class="section__image">
-          <SquaresAnimation :play="playAnimation(1)" :delay="0.25" />
+          <SquaresAnimation :play="playAnimation(1)" :delay="delay" />
         </div>
       </div>
 
@@ -26,7 +26,7 @@
         <div class="section__image">
           <SquaresAnimation
             :play="playAnimation(2)"
-            :delay="0.25"
+            :delay="delay"
             :green="true"
           />
         </div>
@@ -45,7 +45,7 @@
           <SquaresAnimation
             :play="playAnimation(3)"
             :squares="squares"
-            :delay="0.25"
+            :delay="delay"
           />
         </div>
       </div>
@@ -75,7 +75,7 @@ export default {
   },
   data() {
     return {
-      delay: 1,
+      delay: 0,
       tl: null,
       step: null,
       disabled: false,
