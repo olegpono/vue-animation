@@ -56,15 +56,20 @@ export default {
     },
     step(value) {
       this.$root.$emit('setPreventScroll', !!value)
+    },
+    sectionAnchor() {
+      return this.$el.getAttribute('data-anchor')
     }
   },
   beforeDestroy() {
     this.$observer.unobserve(this.$el)
+    this.$root.$off('afterLoad', this.afterLoadHander)
     this.$root.$off('onLeave', this.debounceHandler)
     this.$root.$off('onGoToSection', this.onNavigateHandler)
   },
   mounted() {
     this.$observer.observe(this.$el)
+    this.$root.$on('afterLoad', this.afterLoadHander)
     this.$root.$on('onLeave', this.debounceHandler)
     this.$root.$on('onGoToSection', this.onNavigateHandler)
     this.resetAnimation()
@@ -96,6 +101,14 @@ export default {
         { opacity: 1, y: 0, delay: 1 },
         0
       )
+    },
+    afterLoadHander({ direction, anchor }) {
+      if (this.sectionAnchor !== anchor) return
+      if (direction === 'down') {
+        this.setStep(0)
+      } else {
+        this.setStep(this.greenTexts.length - 1)
+      }
     },
     debounceHandler: debounce(
       function() {
