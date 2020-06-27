@@ -4,7 +4,6 @@
       <FirstSection />
       <SecondSection />
       <ThirdSection />
-      <SeventhSection />
       <EighthSection />
       <FeaturesSection />
       <!-- <QuoteSection /> -->
@@ -20,7 +19,6 @@ import FullPageMixin from '~/mixins/fullpage'
 import FirstSection from '~/components/sections/FirstSection'
 import SecondSection from '~/components/sections/SecondSection'
 import ThirdSection from '~/components/sections/ThirdSection'
-import SeventhSection from '~/components/sections/SeventhSection'
 import EighthSection from '~/components/sections/EighthSection'
 import FeaturesSection from '~/components/sections/FeaturesSection'
 // import QuoteSection from '~/components/sections/QuoteSection'
@@ -33,7 +31,6 @@ export default {
     FirstSection,
     SecondSection,
     ThirdSection,
-    SeventhSection,
     EighthSection,
     FeaturesSection,
     // QuoteSection,

@@ -105,7 +105,7 @@ export default {
       TweenMax.staggerTo(
         this.$el.querySelectorAll('.green'),
         0.5,
-        { delay: 0.5, backgroundColor: '#D1FF7A' },
+        { backgroundColor: '#D1FF7A' },
         0.25
       )
     },

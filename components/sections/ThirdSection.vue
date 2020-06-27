@@ -1,6 +1,6 @@
 <template>
   <section class="section section--purple section--it-works">
-    <div class="container container--text-center">
+    <div ref="container" class="container container--text-center">
       <div class="section-block section-block--one">
         <div class="section__image">
           <ChecksDrawing :play="playAnimation(0)" :delay="0.25" />
@@ -49,12 +49,20 @@
           />
         </div>
       </div>
+
+      <div class="section-block section-block--text-center">
+        <svg-icon
+          ref="logo"
+          name="logo-text"
+          class="section-title section-title--scalable-logo"
+        />
+      </div>
     </div>
   </section>
 </template>
 
 <script>
-import isNull from 'lodash/isNull'
+import isElement from 'lodash/isElement'
 import debounce from 'lodash/debounce'
 import ChecksDrawing from '~/components/ChecksDrawing'
 import SquaresAnimation from '~/components/SquaresAnimation'
@@ -68,6 +76,7 @@ export default {
   data() {
     return {
       delay: 1,
+      tl: null,
       step: null,
       disabled: false,
       imagePlaying: false,
@@ -102,21 +111,53 @@ export default {
 
     await this.$nextTick()
     this.setAnimation()
+    this.setLogoAnimation()
   },
   methods: {
     setAnimation() {
       TweenMax.set(this.titles, { opacity: 0, y: 30 })
       TweenMax.set(this.images, { opacity: 0 })
     },
+    setLogoAnimation() {
+      const { logo, container } = this.$refs
+      const options = {
+        backgroundColor: '#3c3c3b',
+        ease: Power2.easeOut
+      }
+      this.tl = new TimelineMax({
+        paused: true,
+        onStart: this.onStart,
+        onComplete: this.onComplete
+      })
+      this.tl
+        .to(logo, 1.75, { scale: 110, ease: Power4.easeIn })
+        .to(container, 0.75, options, '-=0.75')
+        .to(logo, 0.15, { opacity: 0 })
+    },
+    onStart() {
+      this.$root.$emit('setAllowScrolling', false)
+    },
+    onComplete() {
+      this.$root.$emit('setAllowScrolling', true)
+      this.$root.$emit('setBlockScroll', { down: false, up: false })
+      this.$root.$emit('go-next')
+    },
     play(step, prevStep) {
       const tl = new TimelineMax()
-      if (!isNull(prevStep)) {
-        tl.to(this.titles[prevStep], 0.5, { opacity: 0, y: 30 })
-        tl.to(this.images[prevStep], 0.5, { opacity: 0 }, '-=0.5')
+      const prevTitle = this.titles[prevStep]
+      const prevImage = this.images[prevStep]
+      if (isElement(prevTitle)) {
+        tl.to(prevTitle, 0.5, { opacity: 0, y: 30 })
       }
 
-      if (!isNull(step) && step >= 0 && step <= this.maxStep) {
-        tl.to(this.titles[step], 0.5, {
+      if (isElement(prevImage)) {
+        tl.to(prevImage, 0.5, { opacity: 0 }, '-=0.5')
+      }
+
+      const nextTitle = this.titles[step]
+      const nextImage = this.images[step]
+      if (isElement(nextTitle)) {
+        tl.to(nextTitle, 0.5, {
           delay: prevStep ? 0.5 : 0,
           opacity: 1,
           y: 0,
@@ -124,9 +165,13 @@ export default {
             this.imagePlaying = true
           }
         })
-        tl.to(this.images[step], 0.5, { opacity: 1 })
-        this.imagePlaying = false
       }
+
+      if (isElement(nextImage)) {
+        tl.to(this.images[step], 0.5, { opacity: 1 })
+      }
+
+      this.imagePlaying = false
     },
     debounceOnLeaveHandler: debounce(
       function() {
@@ -147,10 +192,6 @@ export default {
         return
       }
 
-      // if (!this.disabled) {
-      //   this.disableScrolling()
-      // }
-
       switch (true) {
         case direction === 'up' && this.step >= 1:
           this.decreaseStep()
@@ -164,9 +205,8 @@ export default {
           this.$root.$emit('go-prev')
           return
         case direction === 'down' && this.step === this.maxStep:
-          this.increaseStep()
-          this.enableScrolling()
-          this.$root.$emit('go-next')
+          this.$root.$emit('setBlockScroll', { down: true, up: true })
+          this.tl.play()
           break
       }
     },
@@ -176,6 +216,7 @@ export default {
         this.step = 0
       } else {
         this.step = this.maxStep
+        this.tl.reverse()
       }
       this.disableScrolling()
     },
@@ -186,12 +227,9 @@ export default {
       this.step = this.step - 1
     },
     disableScrolling() {
-      // this.disabled = true
       this.$root.$emit('setBlockScroll', { down: true, up: true })
     },
     enableScrolling() {
-      // this.disabled = false
-      // this.resetAnimation()
       this.$root.$emit('setBlockScroll', { down: false, up: false })
     }
   }

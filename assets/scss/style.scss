@@ -315,16 +315,8 @@ body {
 	width: 100%;
 	padding: 0 5%;
 	margin: auto;
-
-	.scalable-logo {
-		width: 775px;
-		margin: 0 auto;
-	}
-
-	&--text-center {
-		display: flex;
-		align-items: center;
-	}
+	display: flex;
+    align-items: center;
 }
 
 .section {
@@ -461,6 +453,18 @@ body {
 					max-width: 100%;
 					margin-left: auto;
 				}
+			}
+		}
+	}
+
+	&--text-center {
+		display: flex;
+		align-items: center;
+
+		.section-title {
+			&--scalable-logo {
+				width: 775px;
+				margin: 0 auto;
 			}
 		}
 	}

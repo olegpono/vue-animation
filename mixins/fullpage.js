@@ -17,10 +17,6 @@ export default {
           'page1',
           'what-is-it',
           'how-does-it-works',
-          'page4',
-          'page5',
-          'page6',
-          'page7',
           'whos-it-for',
           'features',
           'page10'
