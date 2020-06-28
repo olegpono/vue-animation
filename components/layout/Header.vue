@@ -124,6 +124,8 @@ export default {
         ? activeSection.getAttribute('data-anchor')
         : ''
       if (href === activeAnchor) return
+      this.$root.$emit('setBlockScroll', { down: false, up: false })
+      this.$root.$emit('displaySectionStart', true)
       this.$root.$emit('goToSection', href)
     },
     openModal() {

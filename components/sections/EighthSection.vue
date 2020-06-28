@@ -102,9 +102,11 @@ export default {
         0
       )
     },
-    afterLoadHander({ direction, anchor }) {
+    afterLoadHander({ direction, anchor, displaySectionStart }) {
       if (this.sectionAnchor !== anchor) return
-      if (direction === 'down') {
+      this.$root.$emit('setBlockScroll', { down: true, up: true })
+
+      if (direction === 'down' || displaySectionStart) {
         this.preStep = 0
         this.setStep(0)
       } else {
@@ -123,7 +125,7 @@ export default {
         trailing: false
       }
     ),
-    handleOnLeave({ section, nextSection, direction }) {
+    handleOnLeave({ section, nextSection, direction, displaySectionStart }) {
       if (this.$el.isEqualNode(nextSection.item)) {
         this.playAnimation()
       }
@@ -145,6 +147,7 @@ export default {
           this.increasePreStep()
           return
         case direction === 'up' && this.step === 0:
+          if (displaySectionStart) return
           this.enableScrolling()
           this.$root.$emit('go-prev')
           return

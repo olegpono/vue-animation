@@ -80,6 +80,7 @@ export default {
       delay: 0,
       tl: null,
       step: null,
+      played: false,
       disabled: false,
       imagePlaying: false,
       squares: ['tool-square', 'sunglass-square', 'box-square', 'plane-square']
@@ -133,7 +134,8 @@ export default {
       this.tl = new TimelineMax({
         paused: true,
         onStart: this.onStart,
-        onComplete: this.onComplete
+        onComplete: this.onComplete,
+        onReverseComplete: this.onReverseComplete
       })
       this.tl
         .to(logo, 1.75, { scale: 110, ease: Power4.easeIn })
@@ -144,9 +146,13 @@ export default {
       this.$root.$emit('setAllowScrolling', false)
     },
     onComplete() {
+      this.played = true
       this.$root.$emit('setAllowScrolling', true)
       this.$root.$emit('setBlockScroll', { down: false, up: false })
       this.$root.$emit('go-next')
+    },
+    onReverseComplete() {
+      this.played = false
     },
     play(step, prevStep) {
       const tl = new TimelineMax()
@@ -189,7 +195,13 @@ export default {
         trailing: false
       }
     ),
-    onLeaveHander({ section, nextSection, direction, anchor }) {
+    onLeaveHander({
+      section,
+      nextSection,
+      direction,
+      anchor,
+      displaySectionStart
+    }) {
       if (this.$el.isEqualNode(nextSection.item)) {
         return
       }
@@ -206,6 +218,7 @@ export default {
           this.increaseStep()
           return
         case direction === 'up' && this.step === 0:
+          if (displaySectionStart) return
           this.step = null
           this.enableScrolling()
           this.$root.$emit('go-prev')
@@ -216,10 +229,13 @@ export default {
           break
       }
     },
-    afterLoadHander({ direction, anchor }) {
+    afterLoadHander({ direction, anchor, displaySectionStart }) {
       if (this.sectionAnchor !== anchor) return
-      if (direction === 'down') {
+      if (direction === 'down' || displaySectionStart) {
         this.step = 0
+        if (this.played) {
+          this.tl.reverse()
+        }
       } else {
         this.step = this.maxStep
         this.tl.reverse()

@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import debounce from 'lodash/debounce'
 import throttle from 'lodash/throttle'
 import Feature from '~/components/Feature'
 
@@ -34,6 +35,7 @@ export default {
   data() {
     return {
       preventTransition: false,
+      onLoaded: false,
       animationOption: {
         name: 'fade-in-up',
         duration: 0.75,
@@ -110,39 +112,57 @@ export default {
     }
   },
   beforeDestroy() {
-    this.$root.$off('afterLoad', this.afterLoadHander)
+    this.$root.$off('afterLoad', this.afterLoadHandler)
     this.$el
       .querySelector('.features')
       .removeEventListener('scroll', this.throttleScrollHandler)
   },
   async mounted() {
     await this.$nextTick()
-    this.$root.$on('afterLoad', this.afterLoadHander)
+    this.$root.$on('afterLoad', this.afterLoadHandler)
+    this.$root.$on('onLeave', this.debounceHandler)
     this.$el
       .querySelector('.features')
       .addEventListener('scroll', this.throttleScrollHandler)
   },
   methods: {
-    throttleScrollHandler: throttle(
+    throttleScrollHandler: throttle(function() {
+      this.scrollHandler(...arguments)
+    }, 500),
+    debounceHandler: debounce(
       function() {
-        this.scrollHandler(...arguments)
+        this.handleOnLeave(...arguments)
       },
       500,
-      { leading: false }
+      {
+        leading: true,
+        trailing: false
+      }
     ),
-    afterLoadHander({ direction, anchor }) {
+    handleOnLeave({ section, nextSection, direction, displaySectionStart }) {
+      if (
+        !this.$el.isEqualNode(nextSection.item) &&
+        this.$el.isEqualNode(section.item) &&
+        this.onLoaded &&
+        direction === 'up'
+      ) {
+        this.$root.$emit('setBlockScroll', { down: false, up: false })
+        this.$root.$emit('go-prev')
+      }
+    },
+    afterLoadHandler({ direction, anchor }) {
       if (this.sectionAnchor !== anchor) return
+      this.$root.$emit('setBlockScroll', { down: true, up: true })
+
       if (direction === 'down') {
-        // this.$refs.wrapper.scroll({
-        //   top: 10,
-        //   behavior: 'smooth'
-        // })
+        this.onLoaded = true
       }
     },
     scrollHandler(e) {
       const elHeight = $(this.$el).height()
       const startOffset = $('.section-start').offset().top
       const endOffset = $('.section-end').offset().top
+      this.onLoaded = false
 
       if (endOffset < elHeight) {
         this.$root.$emit('setBlockScroll', { down: false, up: false })
