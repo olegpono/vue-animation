@@ -1,26 +1,26 @@
 <template>
   <div :class="['section section--first', { active: activeSection }]">
-    <video
-      v-if="isMobile"
-      class="section__background mobile"
-      data-autoplay
-      muted
-      loop
-      playsinline
-    >
-      <source src="~assets/videos/background-mobile.mp4" type="video/mp4" />
-    </video>
-    <video
-      v-else
-      loop
-      muted
-      data-autoplay
-      playsinline
-      class="section__background"
-    >
-      <source src="~assets/videos/background-desktop.mp4" type="video/mp4" />
-    </video>
     <div class="container container--text-center">
+      <video
+        v-if="isMobile"
+        class="section__background mobile"
+        data-autoplay
+        muted
+        loop
+        playsinline
+      >
+        <source src="~assets/videos/background-mobile.mp4" type="video/mp4" />
+      </video>
+      <video
+        v-else
+        loop
+        muted
+        data-autoplay
+        playsinline
+        class="section__background"
+      >
+        <source src="~assets/videos/background-desktop.mp4" type="video/mp4" />
+      </video>
       <h1
         v-animate="animationOption"
         class="section-title section-title--first"
