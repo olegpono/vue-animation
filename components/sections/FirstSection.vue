@@ -1,9 +1,15 @@
 <template>
   <div class="section section--first">
-    <video v-if="isMobile" class="section__background" data-autoplay muted loop>
+    <video
+      class="section__background mobile"
+      data-autoplay
+      muted
+      loop
+      playsinline
+    >
       <source src="~assets/videos/background-mobile.mp4" type="video/mp4" />
     </video>
-    <video v-else loop muted data-autoplay class="section__background">
+    <video loop muted data-autoplay playsinline class="section__background">
       <source src="~assets/videos/background-desktop.mp4" type="video/mp4" />
     </video>
     <div class="container container--text-center">
