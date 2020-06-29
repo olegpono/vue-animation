@@ -335,11 +335,9 @@ body {
 		background-size: cover;
 	}
 
-	&--first {
-		.container {
-			position: relative;
-			z-index: 20;
-		}
+	.container {
+		position: relative;
+		z-index: 20;
 	}
 
 	&--green {
