@@ -13,7 +13,6 @@
 
       <div class="section-block section-block--two">
         <h2 class="section-title section-title--small section-title--left">
-          <div class="section-title__green">How does it work?</div>
           Based on your inputs, our algorithm automatically searches our
           portfolio and presents products that are specific to your needs
         </h2>
@@ -31,7 +30,6 @@
           />
         </div>
         <h2 class="section-title section-title--small section-title--right">
-          <div class="section-title__green">How does it work?</div>
           Select styles, colours and add bespoke design details to balance your
           collection
         </h2>
@@ -39,7 +37,6 @@
 
       <div class="section-block section-block--four">
         <h2 class="section-title section-title--small section-title--left">
-          <div class="section-title__green">How does it work?</div>
           Place your order and let us handle all factory coordination,
           production management, quality control and delivery
         </h2>

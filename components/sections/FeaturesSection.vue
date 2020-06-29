@@ -224,7 +224,7 @@ export default {
 
   &__wrapper {
     position: relative;
-    padding: 200px 5%;
+    padding: 200px 5% 350px;
   }
 
   &__list {
