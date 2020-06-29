@@ -333,6 +333,18 @@ body {
 		object-position: center;
 		background: url('~assets/images/remove/header-background.png');
 		background-size: cover;
+		opacity: 0;
+		transition: all 0.5s ease;
+	}
+
+	&--first {
+		&.active {
+			.section {
+				&__background {
+					opacity: 1;
+				}
+			}
+		}
 	}
 
 	.container {

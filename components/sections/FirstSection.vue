@@ -1,5 +1,5 @@
 <template>
-  <div class="section section--first">
+  <div :class="['section section--first', { active: activeSection }]">
     <video
       v-if="isMobile"
       class="section__background mobile"
@@ -40,6 +40,7 @@ export default {
   name: 'FirstSection',
   data() {
     return {
+      active: 1,
       animationOption: {
         stagger: [
           {
@@ -59,6 +60,20 @@ export default {
       return !!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
         navigator.userAgent
       )
+    },
+    activeSection() {
+      return this.actice === 1
+    }
+  },
+  created() {
+    this.$root.$on('active-section', this.activeSectionHandler)
+  },
+  beforeDestroy() {
+    this.$root.$off('active-section', this.activeSectionHandler)
+  },
+  methods: {
+    activeSectionHandler(value) {
+      this.active = value
     }
   }
 }
