@@ -152,9 +152,13 @@ export default {
     },
     afterLoadHandler({ direction, anchor }) {
       if (this.sectionAnchor !== anchor) return
-      this.$root.$emit('setBlockScroll', { down: true, up: true })
+
+      if (direction === 'up') {
+        this.$root.$emit('setBlockScroll', { down: false, up: true })
+      }
 
       if (direction === 'down') {
+        this.$root.$emit('setBlockScroll', { down: true, up: true })
         this.onLoaded = true
       }
     },
@@ -167,12 +171,16 @@ export default {
       if (endOffset < elHeight) {
         this.$root.$emit('setBlockScroll', { down: false, up: false })
         this.$root.$emit('go-next')
+        return
       }
 
       if (startOffset >= 0) {
         this.$root.$emit('setBlockScroll', { down: false, up: false })
         this.$root.$emit('go-prev')
+        return
       }
+
+      this.$root.$emit('setBlockScroll', { down: true, up: true })
     }
   }
 }
