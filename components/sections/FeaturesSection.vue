@@ -15,6 +15,7 @@
               :paragraphs="feature.paragraphs"
             />
           </div>
+          <div class="features__overlay" />
           <div class="section-end" />
         </div>
       </div>
@@ -221,6 +222,15 @@ export default {
     width: 100%;
     opacity: 0;
     height: 1px;
+  }
+
+  &__overlay {
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
   }
 
   &__title {
