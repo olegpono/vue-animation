@@ -57,7 +57,6 @@ export default {
           const duration = 0.5
 
           this.$root.$emit('active-section', nextSectionId)
-          this.setAllowScrollingHandler(false)
 
           if (direction === 'down') {
             TweenMax.to(section.item, duration * 1.5, {
@@ -96,7 +95,6 @@ export default {
         },
         afterLoad: (pastSection, section, direction) => {
           const anchor = section.item.getAttribute('data-anchor')
-          this.setAllowScrollingHandler(true)
           this.$root.$emit('afterLoad', {
             pastSection,
             section,

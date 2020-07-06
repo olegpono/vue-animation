@@ -154,6 +154,8 @@ export default {
     afterLoadHandler({ direction, anchor }) {
       if (this.sectionAnchor !== anchor) return
 
+      this.$root.$emit('setAllowScrolling', true)
+
       if (direction === 'up') {
         this.$root.$emit('setBlockScroll', { down: false, up: true })
       }
